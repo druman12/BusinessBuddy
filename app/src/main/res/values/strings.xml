@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SignIn</string>
+    <string name="etconpass">confirm password</string>
+    <string name="etmail">E-MAIL</string>
+    <string name="etname">NAME</string>
+    <string name="etpass">create password</string>
+    <string name="etphone">PHONE</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_password">Create Password</string>
+    <string name="already_have_an_account">Already have an Account?</string>
+    <string name="register">Register</string>
+    <string name="submit">Submit</string>
+</resources>
