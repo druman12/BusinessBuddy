@@ -43,7 +43,6 @@
         android:textColorHint="@color/black"
         android:textColorLink="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +70,6 @@
         android:textColorHint="@color/black"
         android:textColorLink="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +98,6 @@
         android:textColorHint="@color/black"
         android:textColorLink="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +125,6 @@
         android:textColorHint="@color/black"
         android:textColorLink="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
@@ -156,7 +152,6 @@
         android:textColorHint="@color/black"
         android:textColorLink="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
@@ -180,21 +175,6 @@
         app:layout_constraintVertical_bias="0.124"
         tools:ignore="TextSizeCheck" />
 
-    <EditText
-        android:id="@+id/already"
-        android:layout_width="224dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="80dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:text="@string/already_have_an_account"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TextSizeCheck,TouchTargetSizeCheck" />
-
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
@@ -205,12 +185,27 @@
         android:text="@string/submit"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etconpass"
-        app:layout_constraintVertical_bias="0.013" />
+        app:layout_constraintTop_toBottomOf="@+id/etconpass" />
+
+    <TextView
+        android:id="@+id/already"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Already Have an Account?"
+        android:textColor="@color/white"
+        android:textColorLink="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
