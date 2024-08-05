@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30sp"
+        android:layout_marginTop="100sp"
+        android:layout_marginEnd="30sp"
+        android:text="Add Item"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textColorHint="@color/black"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextItemCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="30sp"
+        android:autofillHints=""
+        android:background="@drawable/ip_shap"
+        android:hint="@string/item_code"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingStart="10sp"
+        android:textColorHint="@color/black" />
+
+    <EditText
+        android:id="@+id/editTextItemName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="30sp"
+        android:autofillHints=""
+        android:background="@drawable/ip_shap"
+        android:hint="@string/item_name"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingStart="10sp"
+        android:textColorHint="@color/black" />
+
+    <EditText
+        android:id="@+id/editTextItemPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="30sp"
+        android:autofillHints=""
+        android:background="@drawable/ip_shap"
+        android:hint="@string/item_price"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:paddingStart="10sp"
+        android:textColorHint="@color/black" />
+
+
+    <EditText
+        android:id="@+id/editTextItemQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="30sp"
+        android:autofillHints=""
+        android:background="@drawable/ip_shap"
+        android:ems="10"
+        android:hint="Item Quantity"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:paddingStart="10sp"
+        android:textColorHint="@color/black" />
+
+
+    <EditText
+        android:id="@+id/editTextCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="30sp"
+        android:autofillHints="for ex grocary , electonic , beautyproduct etc"
+        android:background="@drawable/ip_shap"
+        android:hint="Category"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingStart="10sp"
+        android:textColorHint="@color/black" />
+
+
+
+    <Button
+        android:id="@+id/buttonAddItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="30sp"
+        android:text="@string/add_item"
+        android:textSize="20sp"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+</LinearLayout>

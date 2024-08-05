@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="Red">#C11515</color>
     <color name="primedark">#3262C4</color>
+    <color name="my_custom_color">#BDA1E0</color>
 </resources>
