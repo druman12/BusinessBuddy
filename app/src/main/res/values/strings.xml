@@ -16,8 +16,4 @@
     <string name="don_t_have_account">Don\'t Have Account.</string>
     <string name="button">Button</string>
     <string name="signup">SignUp</string>
-    <string name="add_item">Add Item</string>
-    <string name="item_code">Item Code</string>
-    <string name="item_name">Item Name</string>
-    <string name="item_price">Item Price</string>
 </resources>
