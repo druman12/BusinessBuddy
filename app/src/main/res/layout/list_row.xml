@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp" >
+    <TextView
+        android:id="@+id/ItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/SupplierName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ItemName"
+        android:layout_alignBottom="@+id/ItemName"
+        android:layout_alignParentRight="true"
+        android:textColor="#343434"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/ItemCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ItemName"
+        android:layout_marginTop="7dp"
+        android:textColor="#343434"
+        android:textSize="16dp" />
+    <TextView
+        android:id="@+id/Price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ItemCode"
+        android:layout_alignBottom="@+id/ItemCode"
+        android:layout_alignParentRight="true"
+        android:textColor="#343434"
+        android:textSize="16dp" />
+    <TextView
+        android:id="@+id/ItemCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ItemCode"
+        android:layout_marginTop="3dp"
+        android:textColor="#343434"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/Quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ItemCategory"
+        android:layout_alignBottom="@+id/ItemCategory"
+        android:layout_alignParentRight="true"
+        android:textColor="#343434"
+        android:textSize="16dp" />
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.businessbuddy;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,8 @@ public class AddItem extends AppCompatActivity {
     private EditText editTextCategory;
     private Button buttonAddItem;
     private EditText editTextItemQuantity;
+    private Button buttonHome;
+    private Button buttonSeeItem;
 
     private ItemDAO itemDAO;
 
@@ -33,6 +36,8 @@ public class AddItem extends AppCompatActivity {
         editTextCategory = findViewById(R.id.editTextCategory);
         buttonAddItem = findViewById(R.id.buttonAddItem);
         editTextItemQuantity=findViewById(R.id.editTextItemQuantity);
+        buttonHome = findViewById(R.id.Home);
+        buttonSeeItem=findViewById(R.id.SeeItem);
 
         buttonAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +45,22 @@ public class AddItem extends AppCompatActivity {
                 addItem();
             }
         });
+        buttonHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(AddItem.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonSeeItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(AddItem.this, StockList.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void addItem() {
@@ -76,4 +97,5 @@ public class AddItem extends AppCompatActivity {
         editTextItemPrice.setText("");
         editTextCategory.setText("");
     }
+
 }

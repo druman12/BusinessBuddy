@@ -14,7 +14,7 @@
         android:layout_marginStart="30sp"
         android:layout_marginTop="100sp"
         android:layout_marginEnd="30sp"
-        android:text="Add Item"
+        android:text="@string/add_itemTag"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textColorHint="@color/black"
@@ -77,7 +77,7 @@
         android:autofillHints=""
         android:background="@drawable/ip_shap"
         android:ems="10"
-        android:hint="Item Quantity"
+        android:hint="@string/item_quantity"
         android:inputType="number"
         android:minHeight="48dp"
         android:paddingStart="10sp"
@@ -93,12 +93,11 @@
         android:layout_marginEnd="30sp"
         android:autofillHints="for ex grocary , electonic , beautyproduct etc"
         android:background="@drawable/ip_shap"
-        android:hint="Category"
+        android:hint="@string/category"
         android:inputType="text"
         android:minHeight="48dp"
         android:paddingStart="10sp"
         android:textColorHint="@color/black" />
-
 
 
     <Button
@@ -111,5 +110,32 @@
         android:text="@string/add_item"
         android:textSize="20sp"
         tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <LinearLayout
+        android:id="@+id/InLinearLayout"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingTop="5dp">
+
+        <Button
+            android:id="@+id/Home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="40dp"
+            android:text="@string/home"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/SeeItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:text="@string/see_items"
+            android:textSize="16sp" />
+    </LinearLayout>
 
 </LinearLayout>

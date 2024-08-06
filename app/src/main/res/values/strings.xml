@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SignIn</string>
+    <string name="app_name">AddItem</string>
     <string name="etconpass">confirm password</string>
     <string name="etmail">E-MAIL</string>
     <string name="etname">NAME</string>
@@ -16,4 +16,13 @@
     <string name="don_t_have_account">Don\'t Have Account.</string>
     <string name="button">Button</string>
     <string name="signup">SignUp</string>
+    <string name="add_item">Add Item</string>
+    <string name="item_price">Item Price</string>
+    <string name="item_quantity">Item Quantity</string>
+    <string name="add_itemTag">Add Item</string>
+    <string name="category">Category</string>
+    <string name="item_code">Item Code</string>
+    <string name="item_name">Item Name</string>
+    <string name="home">Home</string>
+    <string name="see_items">See Items</string>
 </resources>
