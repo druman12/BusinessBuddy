@@ -44,7 +44,7 @@ public class StockList extends AppCompatActivity {
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent=new Intent(StockList.this,AddItem.class);
+                intent=new Intent(StockList.this, ParchaseEntry.class);
             }
         });
     }

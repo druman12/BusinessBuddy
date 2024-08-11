@@ -25,4 +25,15 @@
     <string name="item_name">Item Name</string>
     <string name="home">Home</string>
     <string name="see_items">See Items</string>
+    <string name="add_item_code">Item Code</string>
+    <string name="add_item_name">Item Name</string>
+    <string name="add_category">Category</string>
+    <string name="add_price">Price</string>
+    <string name="add_total_amount">Total Amount</string>
+    <string name="add_quantity">Quantity</string>
+    <string name="parchase_home">Home</string>
+    <string name="parchase_see_stock">See Stock</string>
+    <string name="parchase_submit">Submit</string>
+    <string name="add_contact_number">Contact Number</string>
+    <string name="parchase_date">Date</string>
 </resources>

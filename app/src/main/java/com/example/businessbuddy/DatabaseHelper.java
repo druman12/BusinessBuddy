@@ -1,50 +1,89 @@
 package com.example.businessbuddy;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.Cursor;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    // Database Version and Name
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "BusinessBuddy.db";
-    private static final int DATABASE_VERSION = 3;  // Incremented version for new table
-    public static final String TABLE_ITEMS = "Items";
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_ITEM_CODE = "item_code";
-    public static final String COLUMN_ITEM_NAME = "item_name";
-    public static final String COLUMN_CATEGORY = "category";
-    public static final String COLUMN_PRICE = "price";
-    public static final String COLUMN_QUANTITY = "quantity";
 
-    public static final String TABLE_SUPPLIERS = "SupplierTable";
-    public static final String COLUMN_SUPPLIER_ID = "_supplier_id";
-    public static final String COLUMN_SUPPLIER_ITEM_CODE = "item_code";  // Foreign key
+    // Table names
+    public static final String TABLE_ITEM = "item";
+    public static final String TABLE_CUSTOMER = "customer";
+    public static final String TABLE_SALES = "sales";
+    public static final String TABLE_SUPPLIER = "supplier";
+
+    // Item Table Columns
+    public static final String COLUMN_ITEMCODE = "itemcode";
+    public static final String COLUMN_ITEM_NAME = "name";
+    public static final String COLUMN_ITEM_CATEGORY = "category";
+    public static final String COLUMN_ITEM_PRICE = "price";
+    public static final String COLUMN_ITEM_QUANTITY = "quantity";
+
+    // Customer Table Columns
+    public static final String COLUMN_CUSTOMER_ID = "customer_id";
+    public static final String COLUMN_CUSTOMER_CONTACT_NO = "contact_no";
+    public static final String COLUMN_PAYMENT_TYPE = "payment_type";
+    public static final String COLUMN_TOTAL_BILL = "total_bill";
+
+    // Sales Table Columns
+    public static final String COLUMN_SALE_ID = "sale_id";
+    public static final String COLUMN_SALE_CUSTOMER_ID = "customer_id";
+    public static final String COLUMN_SALE_ITEMCODE = "itemcode";
+    public static final String COLUMN_SALE_QUANTITY = "quantity";
+    public static final String COLUMN_TOTAL_PRICE = "total_price";
+
+    // Supplier Table Columns
+    public static final String COLUMN_SUPPLIER_ID = "supplier_id";
+    public static final String COLUMN_SUPPLIER_ITEMCODE = "itemcode";
     public static final String COLUMN_SUPPLIER_NAME = "supplier_name";
-    public static final String COLUMN_CONTACT_NUMBER = "contact_number";
-    public static final String COLUMN_ADDRESS = "address";
+    public static final String COLUMN_SUPPLIER_CONTACT_NO = "contact_no";
+    public static final String COLUMN_PAYMENT_DATE = "payment_date";
+    public static final String COLUMN_SUPPLIER_PAYMENT_TYPE = "payment_type";
+    public static final String COLUMN_SUPPLIER_TOTAL_QUANTITY = "total_quantity";
+    public static final String COLUMN_SUPPLIER_TOTAL_BILL_AMOUNT = "total_bill_amount";
 
-    private static final String TABLE_ITEMS_CREATE =
-            "CREATE TABLE " + TABLE_ITEMS + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_ITEM_CODE + " TEXT, " +
-                    COLUMN_ITEM_NAME + " TEXT, " +
-                    COLUMN_CATEGORY + " TEXT, " +
-                    COLUMN_PRICE + " REAL, " +
-                    COLUMN_QUANTITY + " INTEGER" +
-                    ");";
+    // SQL Create Table Statements
+    private static final String CREATE_TABLE_ITEM = "CREATE TABLE " + TABLE_ITEM + " ("
+            + COLUMN_ITEMCODE + " TEXT PRIMARY KEY, "
+            + COLUMN_ITEM_NAME + " TEXT NOT NULL, "
+            + COLUMN_ITEM_CATEGORY + " TEXT NOT NULL, "
+            + COLUMN_ITEM_PRICE + " REAL NOT NULL, "
+            + COLUMN_ITEM_QUANTITY + " INTEGER NOT NULL);";
 
-    private static final String TABLE_SUPPLIERS_CREATE =
-            "CREATE TABLE " + TABLE_SUPPLIERS + " (" +
-                    COLUMN_SUPPLIER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_SUPPLIER_ITEM_CODE + " TEXT, " +
-                    COLUMN_SUPPLIER_NAME + " TEXT, " +
-                    COLUMN_CONTACT_NUMBER + " TEXT, " +
-                    COLUMN_ADDRESS + " TEXT, " +
-                    "FOREIGN KEY(" + COLUMN_SUPPLIER_ITEM_CODE + ") REFERENCES " + TABLE_ITEMS + "(" + COLUMN_ITEM_CODE + ")" +
-                    ");";
+    private static final String CREATE_TABLE_CUSTOMER = "CREATE TABLE " + TABLE_CUSTOMER + " ("
+            + COLUMN_CUSTOMER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_CUSTOMER_CONTACT_NO + " TEXT NOT NULL, "
+            + COLUMN_PAYMENT_TYPE + " TEXT CHECK (" + COLUMN_PAYMENT_TYPE + " IN ('cash', 'online')) NOT NULL, "
+            + COLUMN_TOTAL_BILL + " REAL NOT NULL);";
+
+    private static final String CREATE_TABLE_SALES = "CREATE TABLE " + TABLE_SALES + " ("
+            + COLUMN_SALE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_SALE_CUSTOMER_ID + " INTEGER NOT NULL, "
+            + COLUMN_SALE_ITEMCODE + " TEXT NOT NULL, "
+            + COLUMN_SALE_QUANTITY + " INTEGER NOT NULL CHECK (" + COLUMN_SALE_QUANTITY + " > 0), "
+            + COLUMN_TOTAL_PRICE + " REAL NOT NULL, "
+            + "FOREIGN KEY(" + COLUMN_SALE_CUSTOMER_ID + ") REFERENCES " + TABLE_CUSTOMER + "(" + COLUMN_CUSTOMER_ID + "), "
+            + "FOREIGN KEY(" + COLUMN_SALE_ITEMCODE + ") REFERENCES " + TABLE_ITEM + "(" + COLUMN_ITEMCODE + "));";
+
+    private static final String CREATE_TABLE_SUPPLIER = "CREATE TABLE " + TABLE_SUPPLIER + " ("
+            + COLUMN_SUPPLIER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_SUPPLIER_ITEMCODE + " TEXT NOT NULL, "
+            + COLUMN_SUPPLIER_NAME + " TEXT NOT NULL, "
+            + COLUMN_SUPPLIER_CONTACT_NO + " TEXT NOT NULL, "
+            + COLUMN_PAYMENT_DATE + " DATE NOT NULL, "
+            + COLUMN_SUPPLIER_PAYMENT_TYPE + " TEXT CHECK (" + COLUMN_SUPPLIER_PAYMENT_TYPE + " IN ('cash', 'debit')) NOT NULL, "
+            + COLUMN_SUPPLIER_TOTAL_QUANTITY + " INTEGER NOT NULL CHECK (" + COLUMN_SUPPLIER_TOTAL_QUANTITY + " > 0), "
+            + COLUMN_SUPPLIER_TOTAL_BILL_AMOUNT + " REAL NOT NULL, "
+            + "FOREIGN KEY(" + COLUMN_SUPPLIER_ITEMCODE + ") REFERENCES " + TABLE_ITEM + "(" + COLUMN_ITEMCODE + "));";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -52,50 +91,61 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_ITEMS_CREATE);
-        db.execSQL(TABLE_SUPPLIERS_CREATE);
+        // Creating the tables
+        db.execSQL(CREATE_TABLE_ITEM);
+        db.execSQL(CREATE_TABLE_CUSTOMER);
+        db.execSQL(CREATE_TABLE_SALES);
+        db.execSQL(CREATE_TABLE_SUPPLIER);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) {
-            db.execSQL("ALTER TABLE " + TABLE_ITEMS + " ADD COLUMN " + COLUMN_QUANTITY + " INTEGER DEFAULT 0");
-        }
-        if (oldVersion < 3) {
-            db.execSQL(TABLE_SUPPLIERS_CREATE);
-        }
+        // Drop older tables if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEM);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CUSTOMER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SALES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUPPLIER);
+
+        // Create tables again
+        onCreate(db);
     }
 
+    @SuppressLint("Range")
     public ArrayList<HashMap<String, String>> getAllItemsAndSuppliers() {
         ArrayList<HashMap<String, String>> itemList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " +
-                "i." + COLUMN_ITEM_NAME + ", " +
-                "s." + COLUMN_SUPPLIER_NAME + ", " +
-                "i." + COLUMN_ITEM_CODE + ", " +
-                "i." + COLUMN_PRICE + ", " +
-                "i." + COLUMN_CATEGORY + ", " +
-                "i." + COLUMN_QUANTITY +
-                " FROM " + TABLE_ITEMS + " i" +
-                " LEFT JOIN " + TABLE_SUPPLIERS + " s" +
-                " ON i." + COLUMN_ITEM_CODE + " = s." + COLUMN_SUPPLIER_ITEM_CODE;
+
+        // Query to join Items and Suppliers tables
+        String query = "SELECT i." + COLUMN_ITEMCODE + ", "
+                + "i." + COLUMN_ITEM_NAME + ", "
+                + "i." + COLUMN_ITEM_CATEGORY + ", "
+                + "i." + COLUMN_ITEM_PRICE + ", "
+                + "i." + COLUMN_ITEM_QUANTITY + ", "
+                + "s." + COLUMN_SUPPLIER_NAME + " "
+                + "FROM " + TABLE_ITEM + " i "
+                + "LEFT JOIN " + TABLE_SUPPLIER + " s "
+                + "ON i." + COLUMN_ITEMCODE + " = s." + COLUMN_SUPPLIER_ITEMCODE;
+
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> item = new HashMap<>();
-                item.put("ItemName", cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ITEM_NAME)));
-                item.put("SupplierName", cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SUPPLIER_NAME)));
-                item.put("ItemCode", cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ITEM_CODE)));
-                item.put("Price", cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PRICE)));
-                item.put("ItemCategory", cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CATEGORY)));
-                item.put("Quantity", cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_QUANTITY)));
+                item.put("ItemCode", String.valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_ITEMCODE))));
+                item.put("ItemName", cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
+                item.put("ItemCategory", cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_CATEGORY)));
+                item.put("Price", String.valueOf(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_PRICE))));
+                item.put("Quantity", String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_QUANTITY))));
+                item.put("SupplierName", cursor.getString(cursor.getColumnIndex(COLUMN_SUPPLIER_NAME)));
+
                 itemList.add(item);
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
+
         return itemList;
     }
+
 }

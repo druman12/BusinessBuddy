@@ -8,8 +8,7 @@ public class Item {
     private double price;
     private int quantity;
 
-    public Item(long id, String itemCode, String itemName, String category, double price, int quantity) {
-        this.id = id;
+    public Item(String itemCode, String itemName, String category, double price, int quantity) {
         this.itemCode = itemCode;
         this.itemName = itemName;
         this.category = category;
