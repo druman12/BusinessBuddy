@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version and Name
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "BusinessBuddy.db";
 
     // Table names
@@ -20,6 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_CUSTOMER = "customer";
     public static final String TABLE_SALES = "sales";
     public static final String TABLE_SUPPLIER = "supplier";
+    public static final String TABLE_REGISTER="register";
 
     // Item Table Columns
     public static final String COLUMN_ITEMCODE = "itemcode";
@@ -50,6 +51,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SUPPLIER_PAYMENT_TYPE = "payment_type";
     public static final String COLUMN_SUPPLIER_TOTAL_QUANTITY = "total_quantity";
     public static final String COLUMN_SUPPLIER_TOTAL_BILL_AMOUNT = "total_bill_amount";
+
+
+    //register table columns
+    public static final String COLUMN_REGISTER_ID="user_id";
+    public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_EMAIL = "email";
+    public static final String COLUMN_PASSWORD = "password";
+    public static final String COLUMN_MOBILE_NO = "mobile_no";
+
+
 
     // SQL Create Table Statements
     private static final String CREATE_TABLE_ITEM = "CREATE TABLE " + TABLE_ITEM + " ("
@@ -85,6 +96,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_SUPPLIER_TOTAL_BILL_AMOUNT + " REAL NOT NULL, "
             + "FOREIGN KEY(" + COLUMN_SUPPLIER_ITEMCODE + ") REFERENCES " + TABLE_ITEM + "(" + COLUMN_ITEMCODE + "));";
 
+
+    private static final String CREATE_TABLE_REGISTER="CREATE TABLE " + TABLE_REGISTER+ "("
+            + COLUMN_REGISTER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_NAME + " TEXT,"
+            + COLUMN_EMAIL + " TEXT,"
+            + COLUMN_PASSWORD + " TEXT,"
+            + COLUMN_MOBILE_NO + " TEXT"
+            + ")";
+
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -96,6 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CUSTOMER);
         db.execSQL(CREATE_TABLE_SALES);
         db.execSQL(CREATE_TABLE_SUPPLIER);
+        db.execSQL(CREATE_TABLE_REGISTER);
     }
 
     @Override
@@ -105,7 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CUSTOMER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SALES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUPPLIER);
-
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_REGISTER);
         // Create tables again
         onCreate(db);
     }

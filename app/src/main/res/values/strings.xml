@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AddItem</string>
+    <string name="app_name">LogIn</string>
     <string name="etconpass">confirm password</string>
     <string name="etmail">E-MAIL</string>
     <string name="etname">NAME</string>

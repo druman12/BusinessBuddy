@@ -1,9 +1,12 @@
 package com.example.businessbuddy;
 
+import static com.example.businessbuddy.DatabaseHelper.TABLE_REGISTER;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,5 +200,30 @@ public class ItemDAO {
         }
         return suppliers;
     }
+
+    public Boolean checkusernamepassword(String email,String password)
+    {
+//        Cursor cursor = database.query(DatabaseHelper.TABLE_SUPPLIER, null, DatabaseHelper.COLUMN_SUPPLIER_ID + " = ?", new String[]{String.valueOf(id)}, null, null, null);
+        Cursor cursor = database.rawQuery("SELECT email,password FROM "+ TABLE_REGISTER+" WHERE email = ? AND password = ?", new String[]{email, password});
+        if(cursor.getCount()>0)
+            return true;
+        else
+            return false;
+    }
+    public void insertUser(String name, String email, String password, String mobileNo) {
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(DatabaseHelper.COLUMN_NAME, name);
+        contentValues.put(DatabaseHelper.COLUMN_EMAIL, email);
+        contentValues.put(DatabaseHelper.COLUMN_PASSWORD, password);
+        contentValues.put(DatabaseHelper.COLUMN_MOBILE_NO, mobileNo);
+
+        database.insert(TABLE_REGISTER, null, contentValues);
+
+
+    }
+
+
 
 }
