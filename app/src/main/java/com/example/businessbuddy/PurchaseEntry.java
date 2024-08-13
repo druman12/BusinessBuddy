@@ -8,13 +8,12 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.database.sqlite.SQLiteDatabase;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 
-public class ParchaseEntry extends Activity {
+public class PurchaseEntry extends Activity {
 
     private TableLayout tableItemDetails;
     private Button btnAddMore;
@@ -60,14 +59,14 @@ public class ParchaseEntry extends Activity {
             @Override
             public void onClick(View v) {
                 submitData();
-                Toast.makeText(ParchaseEntry.this, "Parchase Entry done sucessfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PurchaseEntry.this, "Parchase Entry done sucessfully", Toast.LENGTH_SHORT).show();
             }
         });
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ParchaseEntry.this, MainActivity.class);
+                Intent intent = new Intent(PurchaseEntry.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -75,7 +74,7 @@ public class ParchaseEntry extends Activity {
         btnSeeStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ParchaseEntry.this, StockList.class);
+                Intent intent = new Intent(PurchaseEntry.this, StockList.class);
                 startActivity(intent);
             }
         });
@@ -221,9 +220,7 @@ public class ParchaseEntry extends Activity {
             itemDAO.addSupplier(code, "SupplierName", "ContactNumber", "PaymentDate", paymentMode, quantityValue, totalAmountValue);
         }
 
-        // Optionally: Show a success message or navigate to another activity
-        // Toast.makeText(this, "Data submitted successfully", Toast.LENGTH_SHORT).show();
-        // finish(); // Example to close activity
+
     }
 
 

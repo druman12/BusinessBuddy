@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <!-- Customer ID -->
+    <TextView
+        android:id="@+id/tv_customer_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Customer ID"
+        android:textSize="16sp"
+        android:padding="4dp" />
+
+    <!-- Contact Number -->
+    <TextView
+        android:id="@+id/tv_contact_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contact Number"
+        android:textSize="16sp"
+        android:padding="4dp" />
+
+    <!-- Total Bill -->
+    <TextView
+        android:id="@+id/tv_total_bill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Bill"
+        android:textSize="16sp"
+        android:padding="4dp" />
+
+    <!-- Payment Type -->
+    <TextView
+        android:id="@+id/tv_payment_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Payment Type"
+        android:textSize="16sp"
+        android:padding="4dp" />
+
+    <!-- Button to Show/Hide Item Details -->
+    <Button
+        android:id="@+id/btn_show_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Item Details"
+        android:padding="8dp" />
+
+    <!-- TableLayout for Item Details -->
+    <TableLayout
+        android:id="@+id/tl_item_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:stretchColumns="1"
+        android:paddingTop="8dp">
+        <!-- Rows will be added dynamically from SalesAdapter -->
+    </TableLayout>
+
+</LinearLayout>
