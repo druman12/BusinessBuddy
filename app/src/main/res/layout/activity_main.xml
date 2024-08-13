@@ -28,7 +28,7 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="80dp"
         android:columnCount="2"
-        android:padding="10dp"
+        android:padding="5dp"
         android:rowCount="3">
 
         <androidx.cardview.widget.CardView
@@ -41,10 +41,10 @@
             android:layout_column="0"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="20dp"
-            android:elevation="8dp"
-            app:cardCornerRadius="8dp"
+            android:elevation="5dp"
+            app:cardCornerRadius="18dp"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add Item"
+                    android:text="Purchase\n Entry"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -85,7 +85,7 @@
             android:layout_gravity="fill"
             android:layout_marginBottom="20dp"
             android:elevation="8dp"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="18dp"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
@@ -98,17 +98,18 @@
                 tools:ignore="HardcodedText,UseCompoundDrawables">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="50dp"
+                    android:layout_height="45dp"
                     android:src="@drawable/see_stock" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="See Stock"
+                    android:text="    Stock   \n"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"/>
             </LinearLayout>
 
 
@@ -127,12 +128,12 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             android:elevation="8dp"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="18dp"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="72dp"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -148,10 +149,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bill"
+                    android:text="Sale Entry \n"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"/>
             </LinearLayout>
 
 
@@ -169,7 +171,7 @@
             android:layout_gravity="fill"
             android:layout_marginBottom="20dp"
             android:elevation="8dp"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="18dp"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
@@ -183,15 +185,16 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/suppyer" />
+                    android:src="@drawable/history" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Supplyer Info"
+                    android:text="Sale History \n"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"/>
             </LinearLayout>
 
 
@@ -210,7 +213,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             android:elevation="8dp"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="18dp"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
@@ -251,7 +254,7 @@
             android:layout_marginBottom="20dp"
             android:contentDescription="TODO"
             android:elevation="8dp"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="18dp"
             app:cardUseCompatPadding="true"
             tools:ignore="HardcodedText">
 
