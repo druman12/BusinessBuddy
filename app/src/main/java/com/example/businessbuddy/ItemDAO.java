@@ -1,7 +1,9 @@
 package com.example.businessbuddy;
 
+import static com.example.businessbuddy.DatabaseHelper.TABLE_ITEM;
 import static com.example.businessbuddy.DatabaseHelper.TABLE_REGISTER;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,8 +15,8 @@ import java.util.List;
 
 public class ItemDAO {
 
-    private SQLiteDatabase database;
-    private DatabaseHelper dbHelper;
+    static SQLiteDatabase database;
+    private static DatabaseHelper dbHelper;
 
     public ItemDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
@@ -29,7 +31,7 @@ public class ItemDAO {
         values.put(DatabaseHelper.COLUMN_ITEM_QUANTITY, quntity);
 
 
-        database.insert(DatabaseHelper.TABLE_ITEM, null, values);
+        database.insert(TABLE_ITEM, null, values);
 
     }
     // Add a new supplier
@@ -60,7 +62,7 @@ public class ItemDAO {
         values.put(DatabaseHelper.COLUMN_ITEM_QUANTITY, quantity);
 
         // Update the item based on itemCode
-        return database.update(DatabaseHelper.TABLE_ITEM, values, DatabaseHelper.COLUMN_ITEMCODE + " = ?", new String[]{itemCode});
+        return database.update(TABLE_ITEM, values, DatabaseHelper.COLUMN_ITEMCODE + " = ?", new String[]{itemCode});
     }
 
 
@@ -85,14 +87,32 @@ public class ItemDAO {
 
     // Update item quantity when supplier adds more items
     public void updateItemQuantityFromSupplier(String itemCode, int additionalQuantity) {
-        database.execSQL("UPDATE " + DatabaseHelper.TABLE_ITEM + " SET " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " = " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " + ? WHERE " + DatabaseHelper.COLUMN_ITEMCODE + " = ?",
+        database.execSQL("UPDATE " + TABLE_ITEM + " SET " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " = " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " + ? WHERE " + DatabaseHelper.COLUMN_ITEMCODE + " = ?",
                 new Object[]{additionalQuantity, itemCode});
     }
 
     // Update item quantity when customer buys items
     public void updateItemQuantityFromSale(String itemCode, int quantitySold) {
-        database.execSQL("UPDATE " + DatabaseHelper.TABLE_ITEM + " SET " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " = " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " - ? WHERE " + DatabaseHelper.COLUMN_ITEMCODE + " = ?",
+        database.execSQL("UPDATE " + TABLE_ITEM + " SET " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " = " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " - ? WHERE " + DatabaseHelper.COLUMN_ITEMCODE + " = ?",
                 new Object[]{quantitySold, itemCode});
+    }
+
+    @SuppressLint("Range")
+    public double getItemPrice(String itemCode) {
+        double price = 0.0;
+
+        // Query to fetch the price from the item table
+        String query = "SELECT " + DatabaseHelper.COLUMN_ITEM_PRICE + " FROM " + TABLE_ITEM +
+                " WHERE " + DatabaseHelper.COLUMN_ITEMCODE + " = ?";
+
+        Cursor cursor = database.rawQuery(query, new String[]{itemCode});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            price = cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COLUMN_ITEM_PRICE));
+            cursor.close();
+        }
+
+        return price;
     }
 
     // Record a sale transaction
@@ -111,7 +131,7 @@ public class ItemDAO {
 
     // Delete an item
     public void deleteItem(long id) {
-        database.delete(DatabaseHelper.TABLE_ITEM, DatabaseHelper.COLUMN_ITEMCODE + " = ?", new String[]{String.valueOf(id)});
+        database.delete(TABLE_ITEM, DatabaseHelper.COLUMN_ITEMCODE + " = ?", new String[]{String.valueOf(id)});
     }
 
     // Delete a supplier
@@ -119,22 +139,33 @@ public class ItemDAO {
         database.delete(DatabaseHelper.TABLE_SUPPLIER, DatabaseHelper.COLUMN_SUPPLIER_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
-    // Get a single item by ID
-    public Item getItem(long id) {
-        Cursor cursor = database.query(DatabaseHelper.TABLE_ITEM, null, DatabaseHelper.COLUMN_ITEMCODE + " = ?", new String[]{String.valueOf(id)}, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            Item item = new Item(
-                    cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ITEMCODE)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ITEM_NAME)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ITEM_CATEGORY)),
-                    cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ITEM_PRICE)),
-                    cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ITEM_QUANTITY))
-            );
+    public void updateItemQuantity(String itemCode, int quantitySold) {
+        // First, get the current quantity of the item
+        int currentQuantity = getItemQuantity(itemCode);
+
+        // Calculate the new quantity
+        int newQuantity = currentQuantity - quantitySold;
+
+        // Update the item table with the new quantity
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_ITEM_QUANTITY, newQuantity);
+
+        database.update(TABLE_ITEM, values, DatabaseHelper.COLUMN_ITEMCODE + " = ?", new String[]{itemCode});
+    }
+    @SuppressLint("Range")
+    private int getItemQuantity(String itemCode) {
+        int quantity = 0;
+        String query = "SELECT " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " FROM " + TABLE_ITEM +
+                " WHERE " + DatabaseHelper.COLUMN_ITEMCODE + " = ?";
+
+        Cursor cursor = database.rawQuery(query, new String[]{itemCode});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            quantity = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ITEM_QUANTITY));
             cursor.close();
-            return item;
         }
-        return null;
+
+        return quantity;
     }
 
     // Get a single supplier by ID
@@ -161,7 +192,7 @@ public class ItemDAO {
     // Get all items
     public List<Item> getAllItems() {
         List<Item> items = new ArrayList<>();
-        Cursor cursor = database.query(DatabaseHelper.TABLE_ITEM, null, null, null, null, null, null);
+        Cursor cursor = database.query(TABLE_ITEM, null, null, null, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 Item item = new Item(
@@ -224,6 +255,45 @@ public class ItemDAO {
 
     }
 
+    public static String getItemName(String itemCode) {
+         database = dbHelper.getReadableDatabase();
+        String query = "SELECT name FROM " + TABLE_ITEM  + " WHERE itemcode = ?";
+        Cursor cursor = database.rawQuery(query, new String[]{itemCode});
 
+        if (cursor.moveToFirst()) {
+            @SuppressLint("Range") String itemName = cursor.getString(cursor.getColumnIndex("name"));
+            cursor.close();
+            return itemName;
+        }
+        cursor.close();
+        return null;
+    }
 
+    public static double getPrice(String itemCode) {
+        double price = 0.0;
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT price FROM item WHERE itemcode = ?";
+            cursor = database.rawQuery(query, new String[]{itemCode});
+
+            if (cursor.moveToFirst()) {
+                price = cursor.getDouble(cursor.getColumnIndexOrThrow("price"));
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return price;
+    }
+
+    // Close the database connection when done
+    public void close() {
+        if (database != null && database.isOpen()) {
+            database.close();
+        }
+
+    }
 }

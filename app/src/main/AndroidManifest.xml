@@ -13,11 +13,19 @@
         android:theme="@style/Theme.BusinessBuddy"
         tools:targetApi="31">
         <activity
+            android:name=".SalesHistory"
+            android:exported="false" />
+        <activity
+            android:name=".SalesEntry"
+            android:exported="true"/>
+
+
+        <activity
             android:name=".StockList"
             android:exported="true" />
         <activity
             android:name=".LogIn"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,10 +39,8 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".ParchaseEntry"
+            android:name=".PurchaseEntry"
             android:exported="true" />
-
-
     </application>
 
 </manifest>
