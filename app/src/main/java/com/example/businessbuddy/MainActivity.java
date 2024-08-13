@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         cardItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ParchaseEntry.class);
+                Intent intent = new Intent(MainActivity.this, PurchaseEntry.class);
                 startActivity(intent);
             }
         });
@@ -39,21 +39,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        cardBill.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, ShaleEntryActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        cardSupplyerInfo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, ShaleHistoryActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        cardBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SalesEntry.class);
+                startActivity(intent);
+            }
+        });
+
+        cardSupplyerInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SalesHistory.class);
+                startActivity(intent);
+            }
+        });
 
 //        cardProfile.setOnClickListener(new View.OnClickListener() {
 //            @Override
