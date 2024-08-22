@@ -13,25 +13,28 @@
         android:theme="@style/Theme.BusinessBuddy"
         tools:targetApi="31">
         <activity
-            android:name=".SalesHistory"
-            android:exported="false" />
+            android:name=".SaleHistory"
+            android:exported="true" >
+
+        </activity>
+        <activity
+            android:name=".WelcomePage"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".SalesEntry"
-            android:exported="true"/>
-
-
+            android:exported="true" />
         <activity
             android:name=".StockList"
             android:exported="true" />
         <activity
             android:name=".LogIn"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".SignUp"
             android:exported="true" />
@@ -40,7 +43,7 @@
             android:exported="true" />
         <activity
             android:name=".PurchaseEntry"
-            android:exported="true" />
+            android:exported="true"/>
     </application>
 
 </manifest>

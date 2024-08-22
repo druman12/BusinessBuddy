@@ -71,7 +71,8 @@ public class SalesEntry extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to Home
+                Intent intent=new Intent(SalesEntry.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -79,7 +80,7 @@ public class SalesEntry extends AppCompatActivity {
         btnCheckHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SalesEntry.this, SalesHistory.class);
+                Intent intent=new Intent(SalesEntry.this, SaleHistory.class);
                 startActivity(intent);
             }
         });

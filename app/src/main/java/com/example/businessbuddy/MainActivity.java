@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         cardSupplyerInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SalesHistory.class);
+                Intent intent = new Intent(MainActivity.this, SaleHistory.class);
                 startActivity(intent);
             }
         });

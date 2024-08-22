@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/back_support">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal">
+
+            <TableLayout
+                android:id="@+id/saleHistoryTable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*">
+
+                <!-- Table Header -->
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Customer ID"
+                        android:textStyle="bold"
+                        android:background="@drawable/table_cell_border"
+                        android:padding="8dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Contact No"
+                        android:textStyle="bold"
+                        android:background="@drawable/table_cell_border"
+                        android:padding="8dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payment Type"
+                        android:textStyle="bold"
+                        android:background="@drawable/table_cell_border"
+                        android:padding="8dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Bill"
+                        android:textStyle="bold"
+                        android:background="@drawable/table_cell_border"
+                        android:padding="8dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Items Purchased"
+                        android:textStyle="bold"
+                        android:background="@drawable/table_cell_border"
+                        android:padding="8dp" />
+                </TableRow>
+            </TableLayout>
+
+        </HorizontalScrollView>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/back_color"
+        android:textColor="@color/lightgray"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

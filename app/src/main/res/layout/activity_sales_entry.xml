@@ -4,13 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/back_support">
 
     <!-- Customer Details Section -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Customer Contact Number" />
+        android:text="Sales Entry"
+        android:textColor="@color/back_color"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Customer Contact Number"
+        android:textColor="@color/back_color"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"/>
 
     <EditText
         android:id="@+id/et_contact_number"
@@ -67,47 +79,76 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add More"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:textColor="@color/lightgray"
+        android:backgroundTint="@color/back_color"/>
 
     <!-- Total Bill Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="start"
+        android:paddingEnd="10dp"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        >
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Total Bill Amount"
-        android:layout_marginTop="16dp"/>
+        android:textColor="@color/back_color"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/tv_total_bill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:text="0.00"
-        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:textColor="@color/back_color"
         android:textSize="20sp" />
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Payment Type"
-        android:layout_marginTop="16dp"/>
+        android:orientation="horizontal"
+        android:layout_gravity="start"
+        android:paddingEnd="10dp"
+        android:gravity="center_vertical"
+        >
 
-    <RadioGroup
-        android:id="@+id/rg_payment_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rb_cash"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cash" />
+            android:text="Payment Type"
+            android:textColor="@color/back_color"
+            android:textSize="18dp" />
 
-        <RadioButton
-            android:id="@+id/rb_online"
+        <RadioGroup
+            android:id="@+id/rg_payment_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Online" />
-    </RadioGroup>
+            android:orientation="horizontal"
+            android:layout_marginStart="40dp">
+
+            <RadioButton
+                android:id="@+id/rb_cash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cash" />
+
+            <RadioButton
+                android:id="@+id/rb_online"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Online" />
+        </RadioGroup>
+
+    </LinearLayout>
 
     <!-- Buttons -->
     <LinearLayout
@@ -121,18 +162,26 @@
             android:id="@+id/btn_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Home" />
+            android:text="Home"
+            android:textColor="@color/lightgray"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/back_color"/>
 
         <Button
             android:id="@+id/btn_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submit" />
+            android:text="Submit"
+            android:textColor="@color/lightgray"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/back_color"/>
 
         <Button
             android:id="@+id/btn_check_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Check History" />
+            android:text="Check History"
+            android:textColor="@color/lightgray"
+            android:backgroundTint="@color/back_color"/>
     </LinearLayout>
 </LinearLayout>

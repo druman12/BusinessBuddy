@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/back_support"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="12dp"
         android:text="Business Buddy"
-        android:textColor="#fff"
+        android:textColor="@color/back_color"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -45,7 +45,8 @@
             android:layout_marginBottom="20dp"
             android:elevation="5dp"
             app:cardCornerRadius="18dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:backgroundTint="@color/lightgray">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -66,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:text="Purchase\n Entry"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/back_color"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -86,7 +87,8 @@
             android:layout_marginBottom="20dp"
             android:elevation="8dp"
             app:cardCornerRadius="18dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:backgroundTint="@color/lightgray">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -107,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="    Stock   \n"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/back_color"
                     android:textStyle="bold"
                     android:layout_marginTop="5dp"/>
             </LinearLayout>
@@ -129,7 +131,8 @@
             android:layout_marginBottom="20dp"
             android:elevation="8dp"
             app:cardCornerRadius="18dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:backgroundTint="@color/lightgray">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -151,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:text="Sale Entry \n"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/back_color"
                     android:textStyle="bold"
                     android:layout_marginTop="5dp"/>
             </LinearLayout>
@@ -172,7 +175,8 @@
             android:layout_marginBottom="20dp"
             android:elevation="8dp"
             app:cardCornerRadius="18dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:backgroundTint="@color/lightgray">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -192,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:text="Sale History \n"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/back_color"
                     android:textStyle="bold"
                     android:layout_marginTop="5dp"/>
             </LinearLayout>
@@ -214,7 +218,8 @@
             android:layout_marginBottom="20dp"
             android:elevation="8dp"
             app:cardCornerRadius="18dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:backgroundTint="@color/lightgray">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -234,7 +239,7 @@
                     android:layout_height="wrap_content"
                     android:text="Profile"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/back_color"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -256,7 +261,8 @@
             android:elevation="8dp"
             app:cardCornerRadius="18dp"
             app:cardUseCompatPadding="true"
-            tools:ignore="HardcodedText">
+            tools:ignore="HardcodedText"
+            android:backgroundTint="@color/lightgray">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -276,7 +282,7 @@
                     android:layout_height="wrap_content"
                     android:text="Logout"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/back_color"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
             </LinearLayout>

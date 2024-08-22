@@ -3,14 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/back_support">
 
     <!-- Supplier Name Input -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Purchase Entry "
+        android:textSize="30dp"
+        android:textColor="@color/back_color"
+        android:textStyle="bold"
+        />
     <EditText
         android:id="@+id/editSupplierName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Supplier Name"
+        android:layout_marginTop="20dp"
+        android:textColorHint="@color/back_color"
+        android:textColor="@color/back_color"
         android:inputType="text" />
 
     <!-- Contact Number Input -->
@@ -19,6 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/add_contact_number"
+        android:textColorHint="@color/back_color"
+        android:textColor="@color/back_color"
         android:inputType="phone" />
 
     <!-- Date Input -->
@@ -27,7 +41,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/parchase_date"
-        android:inputType="date" />
+        android:inputType="date"
+        android:textColorHint="@color/back_color"
+        android:textColor="@color/back_color"/>
 
     <!-- Horizontal ScrollView for TableLayout -->
     <HorizontalScrollView
@@ -94,6 +110,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add More"
+        android:backgroundTint="@color/back_color"
+        android:textColor="@color/lightgray"
         android:layout_marginTop="16dp" />
 
     <!-- Total Bill Amount -->
@@ -102,30 +120,51 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Total Bill Amount: 0.00"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/back_color"
         android:layout_marginTop="16dp"/>
 
     <!-- Payment Mode RadioGroup -->
-    <RadioGroup
-        android:id="@+id/radioGroupPaymentMode"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:layout_gravity="start"
+        android:paddingEnd="10dp"
+        android:gravity="center_vertical"
+        >
 
-        <RadioButton
-            android:id="@+id/radioCash"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cash" />
+            android:text="Payment Type"
+            android:textColor="@color/back_color"
+            android:textSize="20dp"
+            />
 
-        <RadioButton
-            android:id="@+id/radioDebit"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/radioGroupPaymentMode"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Debit" />
-    </RadioGroup>
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp">
+
+            <RadioButton
+                android:id="@+id/radioCash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cash" />
+
+            <RadioButton
+                android:id="@+id/radioDebit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Debit" />
+        </RadioGroup>
+
+
+    </LinearLayout>
 
     <!-- Buttons -->
     <LinearLayout
@@ -139,21 +178,29 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/parchase_home" />
+            android:text="@string/parchase_home"
+            android:textColor="@color/lightgray"
+            android:backgroundTint="@color/back_color"
+            android:layout_marginEnd="10dp"/>
 
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/parchase_submit" />
+            android:text="@string/parchase_submit"
+            android:textColor="@color/lightgray"
+            android:backgroundTint="@color/back_color"
+            android:layout_marginEnd="10dp"/>
 
         <Button
             android:id="@+id/btnSeeStock"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/parchase_see_stock" />
+            android:text="@string/parchase_see_stock"
+            android:textColor="@color/lightgray"
+            android:backgroundTint="@color/back_color"/>
     </LinearLayout>
 
     <!-- Button to Add More Rows -->

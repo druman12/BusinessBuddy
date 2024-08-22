@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/back_support">
 
     <ListView
         android:id="@+id/lv_sales_history"
@@ -12,5 +13,7 @@
         android:id="@+id/btn_sale_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home"/>
+        android:text="Home"
+        android:textColor="@color/lightgray"
+        android:backgroundTint="@color/back_color"/>
 </LinearLayout>
