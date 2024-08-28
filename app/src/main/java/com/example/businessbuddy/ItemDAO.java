@@ -22,19 +22,41 @@ public class ItemDAO {
         dbHelper = new DatabaseHelper(context);
         database = dbHelper.getWritableDatabase();
     }
-    public void addItem(String itemCode,String itemName , String Catagory , int quntity , double price){
-        ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_ITEMCODE, itemCode);
-        values.put(DatabaseHelper.COLUMN_ITEM_NAME, itemName);
-        values.put(DatabaseHelper.COLUMN_ITEM_CATEGORY, Catagory);
-        values.put(DatabaseHelper.COLUMN_ITEM_PRICE, price);
-        values.put(DatabaseHelper.COLUMN_ITEM_QUANTITY, quntity);
+    //add Item into db
+    public void addItem(String itemCode, String itemName, String category, int quantity, double price) {
+        // Check if the item already exists
+        Cursor cursor = database.query(TABLE_ITEM, null, DatabaseHelper.COLUMN_ITEMCODE + "=?", new String[]{itemCode}, null, null, null);
 
+        if (cursor != null && cursor.moveToFirst()) {
+            // Item exists, update the quantity
+            @SuppressLint("Range") int existingQuantity = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ITEM_QUANTITY));
+            int newQuantity = existingQuantity + quantity;
 
-        database.insert(TABLE_ITEM, null, values);
+            ContentValues values = new ContentValues();
+            values.put(DatabaseHelper.COLUMN_ITEM_NAME, itemName);
+            values.put(DatabaseHelper.COLUMN_ITEM_CATEGORY, category);
+            values.put(DatabaseHelper.COLUMN_ITEM_PRICE, price);
+            values.put(DatabaseHelper.COLUMN_ITEM_QUANTITY, newQuantity);
 
+            database.update(TABLE_ITEM, values, DatabaseHelper.COLUMN_ITEMCODE + "=?", new String[]{itemCode});
+        } else {
+            // Item does not exist, insert a new entry
+            ContentValues values = new ContentValues();
+            values.put(DatabaseHelper.COLUMN_ITEMCODE, itemCode);
+            values.put(DatabaseHelper.COLUMN_ITEM_NAME, itemName);
+            values.put(DatabaseHelper.COLUMN_ITEM_CATEGORY, category);
+            values.put(DatabaseHelper.COLUMN_ITEM_PRICE, price);
+            values.put(DatabaseHelper.COLUMN_ITEM_QUANTITY, quantity);
+
+            database.insert(TABLE_ITEM, null, values);
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
     }
-    // Add a new supplier
+
+    // Add new supplier
     public void addSupplier(String itemCode, String supplierName, String contactNumber, String paymentDate, String paymentType, int totalQuantity, double totalBillAmount) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_SUPPLIER_ITEMCODE, itemCode);
@@ -47,7 +69,7 @@ public class ItemDAO {
 
         database.insert(DatabaseHelper.TABLE_SUPPLIER, null, values);
 
-        // Update item quantity in the item table
+
         updateItemQuantityFromSupplier(itemCode, totalQuantity);
     }
 
@@ -59,11 +81,6 @@ public class ItemDAO {
                 new Object[]{additionalQuantity, itemCode});
     }
 
-    // Update item quantity when customer buys items
-    public void updateItemQuantityFromSale(String itemCode, int quantitySold) {
-        database.execSQL("UPDATE " + TABLE_ITEM + " SET " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " = " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " - ? WHERE " + DatabaseHelper.COLUMN_ITEMCODE + " = ?",
-                new Object[]{quantitySold, itemCode});
-    }
 
     @SuppressLint("Range")
     public double getItemPrice(String itemCode) {

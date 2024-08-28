@@ -30,6 +30,7 @@ public class PurchaseEntry extends Activity {
     private Button btnSeeStock;
     private TextView textTotalBillAmount;
     private RadioGroup radioGroupPaymentMode;
+    private EditText supplierName, supplierContact,date;
 
     private List<TableRow> itemRows = new ArrayList<>();
     private DecimalFormat df = new DecimalFormat("0.00");
@@ -47,6 +48,9 @@ public class PurchaseEntry extends Activity {
         textTotalBillAmount = findViewById(R.id.textTotalBillAmount);
         radioGroupPaymentMode = findViewById(R.id.radioGroupPaymentMode);
 
+        supplierName=findViewById(R.id.editSupplierName);
+        supplierContact=findViewById(R.id.editContactNumber);
+        date=findViewById(R.id.editDate);
 
         btnAddMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,6 +199,11 @@ public class PurchaseEntry extends Activity {
         RadioButton selectedPaymentMode = findViewById(selectedId);
         String paymentMode = selectedPaymentMode != null ? selectedPaymentMode.getText().toString() : "Cash";
 
+        // Fetch supplier data
+        String supplierNameValue = supplierName.getText().toString().trim();
+        String supplierContactValue = supplierContact.getText().toString().trim();
+        String paymentDateValue = date.getText().toString().trim();
+
         // Loop through itemRows to gather data and add to database
         for (TableRow row : itemRows) {
             EditText itemCode = (EditText) row.getChildAt(0);
@@ -204,7 +213,7 @@ public class PurchaseEntry extends Activity {
             EditText quantity = (EditText) row.getChildAt(4);
             TextView totalAmount = (TextView) row.getChildAt(5);
 
-            // Gather data
+            // Gather item data
             String code = itemCode.getText().toString().trim();
             String name = itemName.getText().toString().trim();
             String cat = category.getText().toString().trim();
@@ -215,13 +224,11 @@ public class PurchaseEntry extends Activity {
             // Add item to the database
             itemDAO.addItem(code, name, cat, quantityValue, priceValue);
 
-            // Add supplier to the database
-            // Note: Replace "SupplierName", "ContactNumber", and "PaymentDate" with actual values or user inputs if available
-            itemDAO.addSupplier(code, "SupplierName", "ContactNumber", "PaymentDate", paymentMode, quantityValue, totalAmountValue);
+            // Add supplier to the database with fetched data
+            itemDAO.addSupplier(code, supplierNameValue, supplierContactValue, paymentDateValue, paymentMode, quantityValue, totalAmountValue);
         }
-
-
     }
+
 
 
 }
