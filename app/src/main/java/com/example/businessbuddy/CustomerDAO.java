@@ -49,5 +49,5 @@ public class CustomerDAO {
         return customerId;
     }
 
-    // Other potential methods like getCustomerById, deleteCustomer, etc.
+
 }

@@ -13,20 +13,20 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="40dp"
         android:importantForAccessibility="no"
         tools:ignore="ImageContrastCheck"
-        tools:srcCompat="@drawable/logo" />
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text=" Welcome "
-        android:textColor="@color/back_color"
+        android:text=" Business Buddy "
+        android:textColor="@color/primedark"
         android:textSize="35dp"
         android:textStyle="bold" />
 

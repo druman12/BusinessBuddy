@@ -130,27 +130,7 @@ public class ItemDAO {
     }
 
 
-    public List<Supplier> getAllSuppliers() {
-        List<Supplier> suppliers = new ArrayList<>();
-        Cursor cursor = database.query(DatabaseHelper.TABLE_SUPPLIER, null, null, null, null, null, null);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                Supplier supplier = new Supplier(
-                        cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_SUPPLIER_ID)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_SUPPLIER_ITEMCODE)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_SUPPLIER_NAME)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_SUPPLIER_CONTACT_NO)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PAYMENT_DATE)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_SUPPLIER_PAYMENT_TYPE)),
-                        cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_SUPPLIER_TOTAL_QUANTITY)),
-                        cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_SUPPLIER_TOTAL_BILL_AMOUNT))
-                );
-                suppliers.add(supplier);
-            }
-            cursor.close();
-        }
-        return suppliers;
-    }
+
 
     public Boolean checkusernamepassword(String email,String password)
     {
@@ -175,45 +155,7 @@ public class ItemDAO {
 
     }
 
-    public static String getItemName(String itemCode) {
-         database = dbHelper.getReadableDatabase();
-        String query = "SELECT name FROM " + TABLE_ITEM  + " WHERE itemcode = ?";
-        Cursor cursor = database.rawQuery(query, new String[]{itemCode});
 
-        if (cursor.moveToFirst()) {
-            @SuppressLint("Range") String itemName = cursor.getString(cursor.getColumnIndex("name"));
-            cursor.close();
-            return itemName;
-        }
-        cursor.close();
-        return null;
-    }
 
-    public static double getPrice(String itemCode) {
-        double price = 0.0;
-        Cursor cursor = null;
 
-        try {
-            String query = "SELECT price FROM item WHERE itemcode = ?";
-            cursor = database.rawQuery(query, new String[]{itemCode});
-
-            if (cursor.moveToFirst()) {
-                price = cursor.getDouble(cursor.getColumnIndexOrThrow("price"));
-            }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-
-        return price;
-    }
-
-    // Close the database connection when done
-    public void close() {
-        if (database != null && database.isOpen()) {
-            database.close();
-        }
-
-    }
 }
