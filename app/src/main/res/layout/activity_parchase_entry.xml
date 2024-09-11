@@ -41,9 +41,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/parchase_date"
-        android:inputType="date"
         android:textColorHint="@color/back_color"
-        android:textColor="@color/back_color"/>
+        android:textColor="@color/back_color"
+        android:focusable="false"
+        android:clickable="true" />
+
 
     <!-- Horizontal ScrollView for TableLayout -->
     <HorizontalScrollView

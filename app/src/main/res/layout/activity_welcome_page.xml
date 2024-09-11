@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text=" Business Buddy "
-        android:textColor="@color/primedark"
+        android:textColor="@color/back_color"
         android:textSize="35dp"
         android:textStyle="bold" />
 

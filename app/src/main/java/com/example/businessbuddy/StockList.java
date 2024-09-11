@@ -45,6 +45,7 @@ public class StockList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intent=new Intent(StockList.this, PurchaseEntry.class);
+                startActivity(intent);
             }
         });
     }
