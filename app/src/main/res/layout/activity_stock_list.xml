@@ -5,6 +5,16 @@
     android:orientation="vertical"
     android:background="@color/back_support">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stock List"
+        android:textSize="30dp"
+        android:textColor="@color/back_color"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        />
+
     <ListView
         android:id="@+id/user_list"
         android:layout_width="fill_parent"
