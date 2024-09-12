@@ -76,6 +76,11 @@ public class SignUp extends AppCompatActivity {
                     }
                 }
 
+                else {
+
+                    Toast.makeText(SignUp.this, "Please enter your valid fields", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
