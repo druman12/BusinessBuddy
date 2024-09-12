@@ -63,7 +63,13 @@ public class SalesEntry extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitSale();
+
+                if(etContactNumber.getText().toString().equals("")){
+                    Toast.makeText(SalesEntry.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                }else{
+                    submitSale();
+                }
+
             }
         });
 
@@ -106,8 +112,9 @@ public class SalesEntry extends AppCompatActivity {
         // Amount/TextView
         TextView amountTextView = new TextView(this);
         amountTextView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        amountTextView.setText("0.00");
+        amountTextView.setText("    0.00");
         amountTextView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+
 
         // Add the views to the row
         newRow.addView(itemCodeEditText);

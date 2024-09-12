@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Item Code/Name"
+            android:text="Item Code"
             android:textStyle="bold"
             android:gravity="center"/>
 
@@ -139,7 +139,8 @@
                 android:id="@+id/rb_cash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cash" />
+                android:text="Cash"
+                android:checked="true"/>
 
             <RadioButton
                 android:id="@+id/rb_online"

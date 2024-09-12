@@ -4,6 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/back_support">
+
     <ListView
         android:id="@+id/user_list"
         android:layout_width="fill_parent"
@@ -13,21 +14,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/BackHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Home"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/lightgray"
             android:backgroundTint="@color/back_color"/>
 
         <Button
             android:id="@+id/Add_Items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Add Items"
             android:textColor="@color/lightgray"
             android:backgroundTint="@color/back_color"/>
