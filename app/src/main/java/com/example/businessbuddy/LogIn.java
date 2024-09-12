@@ -28,17 +28,21 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
         TextView signup=findViewById(R.id.signup);
 
+        email=(EditText)findViewById(R.id.Email);
+        password=(EditText)findViewById(R.id.Password);
+        button=(Button)findViewById(R.id.LogIn);
+
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(LogIn.this,SignUp.class));
+
+                    startActivity(new Intent(LogIn.this, SignUp.class));
+
             }
         });
-        email=(EditText)findViewById(R.id.Email);
-        password=(EditText)findViewById(R.id.Password);
-        button=(Button)findViewById(R.id.LogIn);
+
 
         ItemDAO itemDAO=new ItemDAO(this);
 

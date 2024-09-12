@@ -2,6 +2,7 @@ package com.example.businessbuddy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,26 +35,52 @@ public class SignUp extends AppCompatActivity {
 
     ItemDAO itemDAO=new ItemDAO(this);
 
+
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String name = etName.getText().toString();
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
                 String mobileNo = etMobileNo.getText().toString();
 
-                if (password.equals(confirmPassword)) {
-                    itemDAO.insertUser(name, email, password, mobileNo);
-                        Toast.makeText(SignUp.this, "User registered successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignUp.this, LogIn.class);
-                        startActivity(intent);
+                if(!name.equals("")||!email.equals("")||!mobileNo.equals("")) {
 
-                } else {
-                    Toast.makeText(SignUp.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    if(mobileNo.length()==10) {
+
+
+                        if (password.equals(confirmPassword)) {
+
+
+                            if (isValidEmail(email)) {
+
+                                itemDAO.insertUser(name, email, password, mobileNo);
+                                Toast.makeText(SignUp.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignUp.this, LogIn.class);
+                                startActivity(intent);
+                            }
+                            else {
+                                Toast.makeText(SignUp.this, "Please enter your valid Email field", Toast.LENGTH_SHORT).show();
+                            }
+                        } else
+                        {
+                            Toast.makeText(SignUp.this, "Please enter your valid password", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                    else {
+                        Toast.makeText(SignUp.this, "Please enter your valid phonenumber", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
+
+
             }
         });
+
+
 
 
         changeto.setOnClickListener(new View.OnClickListener() {
@@ -62,5 +89,20 @@ public class SignUp extends AppCompatActivity {
                 startActivity(new Intent(SignUp.this, LogIn.class));
             }
         });
+
+
+    }
+    private boolean isValidEmail(String email) {
+
+
+        if (!email.contains("@")) {
+            return false;
+        }
+
+        if (!email.endsWith("gmail.com")) {
+            return false;
+        }
+
+        return true;
     }
 }

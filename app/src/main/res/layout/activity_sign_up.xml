@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/back_support"
+    android:padding="32dp"
     tools:context=".SignUp">
 
 
@@ -20,14 +21,14 @@
         android:textAlignment="center"
         android:textColor="@color/back_color"
         android:textSize="34sp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="50dp"/>
 
     <EditText
         android:id="@+id/etname"
-        android:layout_width="250dp"
-        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/ip_shap"
         android:backgroundTintMode="src_in"
         android:drawableStart="@drawable/person"
@@ -35,6 +36,8 @@
         android:ems="10"
         android:gravity="center|start"
         android:hint="@string/etname"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
         android:importantForAutofill="no"
         android:inputType="text"
         android:paddingStart="15dp"
@@ -46,8 +49,8 @@
 
     <EditText
         android:id="@+id/etemail"
-        android:layout_width="250dp"
-        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="22dp"
         android:background="@drawable/ip_shap"
@@ -55,6 +58,8 @@
         android:drawableStart="@drawable/email"
         android:drawablePadding="12dp"
         android:ems="10"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
         android:gravity="center|start"
         android:hint="@string/etmail"
         android:importantForAutofill="no"
@@ -67,8 +72,8 @@
 
     <EditText
         android:id="@+id/etphone"
-        android:layout_width="250dp"
-        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="22dp"
         android:background="@drawable/ip_shap"
@@ -77,6 +82,8 @@
         android:drawablePadding="12dp"
         android:ems="10"
         android:gravity="center|start"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
         android:hint="@string/etphone"
         android:importantForAutofill="no"
         android:inputType="phone"
@@ -85,13 +92,14 @@
         android:textColor="@color/back_color"
         android:textColorHint="@color/back_color"
         android:textSize="18sp"
-        tools:ignore="TextSizeCheck" />
+        tools:ignore="TextSizeCheck"
+        android:maxLength="10"/>
 
 
     <EditText
         android:id="@+id/etpass"
-        android:layout_width="250dp"
-        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="22dp"
         android:background="@drawable/ip_shap"
@@ -99,20 +107,23 @@
         android:drawableStart="@drawable/security"
         android:drawablePadding="12dp"
         android:ems="10"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
         android:gravity="center|start"
-        android:hint="@string/create_password"
+        android:hint="Create Password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:textColor="@color/back_color"
         android:textColorHint="@color/back_color"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:maxLength="10"/>
 
     <EditText
         android:id="@+id/etconpass"
-        android:layout_width="250dp"
-        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="22dp"
         android:autofillHints=""
@@ -121,6 +132,8 @@
         android:drawableStart="@drawable/security"
         android:drawablePadding="12dp"
         android:ems="10"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
         android:gravity="center|start"
         android:hint="@string/confirm_password"
         android:inputType="textPassword"
@@ -129,7 +142,8 @@
         android:textColor="@color/back_color"
         android:textColorHint="@color/back_color"
         android:textSize="18sp"
-        tools:ignore="VisualLintTextFieldSize" />
+        tools:ignore="VisualLintTextFieldSize"
+        android:maxLength="10"/>
 
     <Button
         android:id="@+id/button"

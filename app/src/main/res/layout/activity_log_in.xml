@@ -57,7 +57,8 @@
         android:textColor="@color/back_color"
         android:textColorHint="@color/back_color"
         android:textSize="18sp"
-        android:layout_marginBottom="76dp" />
+        android:layout_marginBottom="76dp"
+        android:maxLength="10"/>
 
     <Button
         android:id="@+id/LogIn"
