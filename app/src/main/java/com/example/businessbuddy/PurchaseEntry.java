@@ -56,6 +56,9 @@ public class PurchaseEntry extends Activity {
         supplierContact=findViewById(R.id.editContactNumber);
         editDate = findViewById(R.id.editDate);
 
+
+
+
         editDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,12 +93,18 @@ public class PurchaseEntry extends Activity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                               if(supplierName.getText().toString().equals("") || supplierContact.getText().toString().equals("") ){
-                    Toast.makeText(PurchaseEntry.this, "Please fill all fields !!", Toast.LENGTH_SHORT).show();
+                               if(supplierName.getText().toString().equals("") && supplierContact.getText().toString().equals("") && supplierContact.getText().toString().length() !=10 ){
+                    Toast.makeText(PurchaseEntry.this, "Please fill all fields correctly !!", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    submitData();
-                    Toast.makeText(PurchaseEntry.this, "Parchase Entry done sucessfully", Toast.LENGTH_SHORT).show();
+                    if(supplierContact.getText().toString().length() ==10){
+                        submitData();
+                        Toast.makeText(PurchaseEntry.this, "Parchase Entry done sucessfully", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(PurchaseEntry.this, "Error , Please check Mobile Number !!", Toast.LENGTH_SHORT).show();
+
+                    }
 
                 }
             }
@@ -132,12 +141,14 @@ public class PurchaseEntry extends Activity {
         EditText itemCode = new EditText(this);
         itemCode.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
         itemCode.setHint("Item Code");
-        itemCode.setTextSize(14);
+        itemCode.setTextSize(13);
+        itemCode.setSingleLine(true);
 
         EditText itemName = new EditText(this);
         itemName.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
         itemName.setHint("Item Name");
-        itemName.setTextSize(14);
+        itemName.setTextSize(13);
+        itemName.setSingleLine(true);
 
         EditText category = new EditText(this);
         category.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
@@ -145,7 +156,6 @@ public class PurchaseEntry extends Activity {
         category.setTextSize(14);
 
         EditText price = new EditText(this);
-        price.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
         price.setHint("Price");
         price.setTextSize(14);
         price.setInputType(android.text.InputType.TYPE_CLASS_NUMBER | android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -237,6 +247,8 @@ public class PurchaseEntry extends Activity {
         String supplierNameValue = supplierName.getText().toString().trim();
         String supplierContactValue = supplierContact.getText().toString().trim();
         String paymentDateValue = editDate.getText().toString();
+
+
 
         // Loop through itemRows to gather data and add to database
         for (TableRow row : itemRows) {

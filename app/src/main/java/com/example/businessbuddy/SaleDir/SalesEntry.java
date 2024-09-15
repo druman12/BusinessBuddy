@@ -1,4 +1,4 @@
-package com.example.businessbuddy;
+package com.example.businessbuddy.SaleDir;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.businessbuddy.CustomerDAO;
+import com.example.businessbuddy.ItemDAO;
+import com.example.businessbuddy.MainActivity;
+import com.example.businessbuddy.R;
 
 public class SalesEntry extends AppCompatActivity {
 
@@ -100,12 +105,14 @@ public class SalesEntry extends AppCompatActivity {
         EditText itemCodeEditText = new EditText(this);
         itemCodeEditText.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         itemCodeEditText.setHint("Item Code");
+        itemCodeEditText.setHintTextColor(getColor(R.color.black));
         itemCodeEditText.addTextChangedListener(new ItemCodeTextWatcher(itemCodeEditText));
 
         // Quantity/EditText
         EditText quantityEditText = new EditText(this);
         quantityEditText.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         quantityEditText.setHint("Quantity");
+        quantityEditText.setHintTextColor(getColor(R.color.black));
         quantityEditText.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
         quantityEditText.addTextChangedListener(new QuantityTextWatcher(quantityEditText, itemCodeEditText));
 
@@ -207,7 +214,7 @@ public class SalesEntry extends AppCompatActivity {
 
     private void submitSale() {
         String contactNo = etContactNumber.getText().toString();
-        String paymentType = getSelectedPaymentType();
+        String paymentType = getSelectedPaymentType().toString();
 
         // Insert customer and get customer ID
         Integer customerId = customerDAO.insertCustomer(contactNo, paymentType, totalBill);

@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class CustomerDAO {
 
@@ -23,6 +24,8 @@ public class CustomerDAO {
         values.put(DatabaseHelper.COLUMN_CUSTOMER_CONTACT_NO, contactNo);
         values.put(DatabaseHelper.COLUMN_PAYMENT_TYPE, paymentType);
         values.put(DatabaseHelper.COLUMN_TOTAL_BILL, totalBill);
+
+        Log.d("Customer data by druman",contactNo +" , "+" , "+paymentType + " , "+totalBill );
 
         // Check if the customer already exists
         Cursor cursor = db.query(DatabaseHelper.TABLE_CUSTOMER,

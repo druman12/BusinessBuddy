@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ItemDAO {
@@ -56,6 +57,7 @@ public class ItemDAO {
         }
     }
 
+
     // Add new supplier
     public void addSupplier(String itemCode, String supplierName, String contactNumber, String paymentDate, String paymentType, int totalQuantity, double totalBillAmount) {
         ContentValues values = new ContentValues();
@@ -67,19 +69,10 @@ public class ItemDAO {
         values.put(DatabaseHelper.COLUMN_SUPPLIER_TOTAL_QUANTITY, totalQuantity);
         values.put(DatabaseHelper.COLUMN_SUPPLIER_TOTAL_BILL_AMOUNT, totalBillAmount);
 
+        // Insert supplier information without updating the item quantity
         database.insert(DatabaseHelper.TABLE_SUPPLIER, null, values);
-
-
-        updateItemQuantityFromSupplier(itemCode, totalQuantity);
     }
 
-
-
-    // Update item quantity when supplier adds more items
-    public void updateItemQuantityFromSupplier(String itemCode, int additionalQuantity) {
-        database.execSQL("UPDATE " + TABLE_ITEM + " SET " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " = " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " + ? WHERE " + DatabaseHelper.COLUMN_ITEMCODE + " = ?",
-                new Object[]{additionalQuantity, itemCode});
-    }
 
 
     @SuppressLint("Range")
@@ -128,8 +121,6 @@ public class ItemDAO {
 
         return quantity;
     }
-
-
 
 
     public Boolean checkusernamepassword(String email,String password)
