@@ -1,8 +1,10 @@
-package com.example.businessbuddy;
+package com.example.businessbuddy.SaleDir;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.businessbuddy.DatabaseHelper;
 
 public class SaleDAO {
     private SQLiteDatabase database;
@@ -20,7 +22,7 @@ public class SaleDAO {
         values.put("quantity", saleItem.getQuantity());
         values.put("total_price", saleItem.getTotalAmount());
 
-        return database.insert("sale_details", null, values);
+        return database.insert("sales", null, values);
     }
 
 

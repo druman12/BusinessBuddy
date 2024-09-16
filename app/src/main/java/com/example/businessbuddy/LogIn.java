@@ -1,9 +1,11 @@
 package com.example.businessbuddy;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,6 +62,13 @@ public class LogIn extends AppCompatActivity {
 
                     if(checkuserpass)
                     {
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("login_session", MODE_PRIVATE);
+                        SharedPreferences.Editor editor=sharedPreferences.edit();
+                        editor.putString("email",email1);
+                        editor.apply();
+
+                        Log.d("login email is ",email1);
                         Toast.makeText(LogIn.this, "login successfuly", Toast.LENGTH_SHORT).show();
                         Intent intent=new Intent(LogIn.this,MainActivity.class);
                         startActivity(intent);

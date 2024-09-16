@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Define solid color for background -->
+    <solid android:color="@color/back_support" />
+    <!-- Adjust this to match your background -->
+
+    <!-- Define corner radius for the top-left and top-right corners -->
+    <corners
+        android:topLeftRadius="60dp"
+        android:topRightRadius="60dp" />
+
+    <!-- Optional: Add padding inside the LinearLayout if needed -->
+    <padding
+        android:left="16dp"
+        android:top="16dp"
+        android:right="16dp"
+        android:bottom="16dp" />
+</shape>

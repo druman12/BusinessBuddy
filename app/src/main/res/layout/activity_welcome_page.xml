@@ -14,11 +14,11 @@
     <ImageView
         android:id="@+id/logo"
         android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:layout_marginBottom="40dp"
         android:importantForAccessibility="no"
         tools:ignore="ImageContrastCheck"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo_1" />
 
     <TextView
         android:id="@+id/welcome"

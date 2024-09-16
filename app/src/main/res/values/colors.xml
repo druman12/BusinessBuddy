@@ -2,9 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="lightgray">#F1F1F2</color>
+    <color name="lightgray">#FFFFFF</color>
     <color name="primedark">#3262C4</color>
     <color name="my_custom_color">#BDA1E0</color>
-    <color name="back_color">#108599</color>
+    <color name="back_color">#C5108599</color>
     <color name="back_support">#F0F8FF</color>
+    <color name="text_color">#C0468D99</color>
 </resources>

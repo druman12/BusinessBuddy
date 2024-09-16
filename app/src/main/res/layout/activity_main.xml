@@ -8,21 +8,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/titlehome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="12dp"
-        android:text="Business Buddy"
-        android:textColor="@color/back_color"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/titlehome"
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="40dp"

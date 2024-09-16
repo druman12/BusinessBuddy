@@ -1,8 +1,10 @@
-package com.example.businessbuddy;
+package com.example.businessbuddy.SaleDir;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -11,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.businessbuddy.DatabaseHelper;
+import com.example.businessbuddy.R;
 
 public class SaleHistory extends AppCompatActivity {
 
@@ -53,6 +58,8 @@ public class SaleHistory extends AppCompatActivity {
         try {
             cursor = database.rawQuery(query, null);
 
+
+
             // Check if the cursor is empty
             if (cursor == null || !cursor.moveToFirst()) {
                 Toast.makeText(this, "No sale history found.", Toast.LENGTH_SHORT).show();
@@ -72,6 +79,10 @@ public class SaleHistory extends AppCompatActivity {
                     contactNo.setText(cursor.getString(cursor.getColumnIndexOrThrow("contact_no")));
                     row.addView(contactNo);
 
+                    Log.d("SQL_QUERY", "CustomerID: " + cursor.getString(cursor.getColumnIndexOrThrow("customer_id")) +
+                            ", Contact: " + cursor.getString(cursor.getColumnIndexOrThrow("contact_no")));
+
+
                     TextView paymentType = new TextView(this);
                     paymentType.setText(cursor.getString(cursor.getColumnIndexOrThrow("payment_type")));
                     row.addView(paymentType);
@@ -83,6 +94,8 @@ public class SaleHistory extends AppCompatActivity {
                     TextView itemsPurchased = new TextView(this);
                     itemsPurchased.setText(cursor.getString(cursor.getColumnIndexOrThrow("items_purchased")));
                     row.addView(itemsPurchased);
+
+
                 } catch (Exception e) {
                     Toast.makeText(this, "Error parsing row data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     continue; // Skip this row and proceed with the next one
@@ -90,6 +103,7 @@ public class SaleHistory extends AppCompatActivity {
 
                 // Add the row to the table layout
                 saleHistoryTable.addView(row);
+                saleHistoryTable.requestLayout();
             } while (cursor.moveToNext());
         } catch (Exception e) {
             // Handle the general exception case

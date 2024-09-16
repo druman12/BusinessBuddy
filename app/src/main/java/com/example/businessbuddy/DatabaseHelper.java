@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -168,6 +169,66 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return itemList;
+    }
+
+    @SuppressLint("Range")
+    public String getName(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_NAME};
+        String selection = COLUMN_EMAIL + " = ?";
+        String[] selectionArgs = {email};
+
+        Cursor cursor = db.query(TABLE_REGISTER, columns, selection, selectionArgs, null, null, null);
+
+        String name = "";
+
+
+        if (cursor.moveToFirst()) {
+            name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+
+        }
+
+        cursor.close();
+        db.close();
+        Log.d("fatch name is",name);
+        return name;
+    }
+
+    @SuppressLint("Range")
+
+    public String getPhone(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_MOBILE_NO};
+        String selection = COLUMN_EMAIL + " = ?";
+        String[] selectionArgs = {email};
+
+        Cursor cursor = null;
+        String phone = "";
+
+        try {
+            cursor = db.query(TABLE_REGISTER, columns, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int phoneIndex = cursor.getColumnIndex(COLUMN_MOBILE_NO);
+                if (phoneIndex != -1) {
+                    phone = cursor.getString(phoneIndex);
+                } else {
+                    phone = "Column not found";
+                }
+            } else {
+                phone = "No data available";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            phone = "Error occurred";
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+Log.d("fatch phone is",phone);
+        return phone;
     }
 
 }

@@ -29,7 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
-        android:hint="Enter contact number" />
+        android:hint="Enter contact number"
+        android:textColorHint="@color/text_color"/>
 
     <!-- Sales Entry Section -->
     <!-- Table Headers -->
@@ -139,14 +140,14 @@
                 android:id="@+id/rb_cash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cash"
+                android:text="cash"
                 android:checked="true"/>
 
             <RadioButton
                 android:id="@+id/rb_online"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Online" />
+                android:text="online" />
         </RadioGroup>
 
     </LinearLayout>
