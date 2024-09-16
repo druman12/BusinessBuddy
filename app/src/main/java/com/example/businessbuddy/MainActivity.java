@@ -55,13 +55,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        cardProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        cardProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Profile.class);
+                startActivity(intent);
+            }
+        });
 
         cardLogout.setOnClickListener(new View.OnClickListener() {
             @Override
