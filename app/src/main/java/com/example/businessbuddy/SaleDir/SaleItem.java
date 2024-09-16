@@ -1,4 +1,4 @@
-package com.example.businessbuddy;
+package com.example.businessbuddy.SaleDir;
 
 public class SaleItem {
     private String itemCode;

@@ -44,7 +44,7 @@
         android:paddingEnd="15dp"
         android:singleLine="false"
         android:textColor="@color/back_color"
-        android:textColorHint="@color/back_color"
+        android:textColorHint="@color/text_color"
         android:textSize="18sp" />
 
     <EditText
@@ -58,16 +58,16 @@
         android:drawableStart="@drawable/email"
         android:drawablePadding="12dp"
         android:ems="10"
-        android:paddingLeft="20dp"
-        android:paddingRight="10dp"
         android:gravity="center|start"
         android:hint="@string/etmail"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:paddingStart="15dp"
+        android:paddingLeft="20dp"
         android:paddingEnd="15dp"
+        android:paddingRight="10dp"
         android:textColor="@color/back_color"
-        android:textColorHint="@color/back_color"
+        android:textColorHint="@color/text_color"
         android:textSize="18sp" />
 
     <EditText
@@ -82,18 +82,18 @@
         android:drawablePadding="12dp"
         android:ems="10"
         android:gravity="center|start"
-        android:paddingLeft="20dp"
-        android:paddingRight="10dp"
         android:hint="@string/etphone"
         android:importantForAutofill="no"
         android:inputType="phone"
+        android:maxLength="10"
         android:paddingStart="15dp"
+        android:paddingLeft="20dp"
         android:paddingEnd="15dp"
+        android:paddingRight="10dp"
         android:textColor="@color/back_color"
-        android:textColorHint="@color/back_color"
+        android:textColorHint="@color/text_color"
         android:textSize="18sp"
-        tools:ignore="TextSizeCheck"
-        android:maxLength="10"/>
+        tools:ignore="TextSizeCheck" />
 
 
     <EditText
@@ -107,18 +107,18 @@
         android:drawableStart="@drawable/security"
         android:drawablePadding="12dp"
         android:ems="10"
-        android:paddingLeft="20dp"
-        android:paddingRight="10dp"
         android:gravity="center|start"
         android:hint="Create Password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
+        android:maxLength="10"
         android:paddingStart="15dp"
+        android:paddingLeft="20dp"
         android:paddingEnd="15dp"
+        android:paddingRight="10dp"
         android:textColor="@color/back_color"
-        android:textColorHint="@color/back_color"
-        android:textSize="18sp"
-        android:maxLength="10"/>
+        android:textColorHint="@color/text_color"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/etconpass"
@@ -132,18 +132,18 @@
         android:drawableStart="@drawable/security"
         android:drawablePadding="12dp"
         android:ems="10"
-        android:paddingLeft="20dp"
-        android:paddingRight="10dp"
         android:gravity="center|start"
         android:hint="@string/confirm_password"
         android:inputType="textPassword"
+        android:maxLength="10"
         android:paddingStart="15dp"
+        android:paddingLeft="20dp"
         android:paddingEnd="15dp"
+        android:paddingRight="10dp"
         android:textColor="@color/back_color"
-        android:textColorHint="@color/back_color"
+        android:textColorHint="@color/text_color"
         android:textSize="18sp"
-        tools:ignore="VisualLintTextFieldSize"
-        android:maxLength="10"/>
+        tools:ignore="VisualLintTextFieldSize" />
 
     <Button
         android:id="@+id/button"

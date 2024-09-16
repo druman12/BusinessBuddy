@@ -70,37 +70,43 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_item_code"
+                    android:textColor="@color/black"
                     android:paddingEnd="8dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_item_name"
+                    android:textColor="@color/black"
                     android:paddingEnd="8dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_category"
+                    android:textColor="@color/black"
                     android:paddingEnd="8dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_price"
+                    android:textColor="@color/black"
                     android:paddingEnd="8dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_quantity"
-                    android:paddingEnd="8dp"/>
+                    android:textColor="@color/black"
+                    android:paddingEnd="8dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_total_amount"
-                    android:paddingEnd="8dp"/>
+                    android:textColor="@color/black"
+                    android:paddingEnd="8dp" />
             </TableRow>
 
             <!-- Add rows dynamically here -->
@@ -112,9 +118,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add More"
-        android:backgroundTint="@color/back_color"
+        android:layout_marginTop="8dp"
         android:textColor="@color/lightgray"
-        android:layout_marginTop="16dp" />
+        android:backgroundTint="@color/back_color" />
 
     <!-- Total Bill Amount -->
     <TextView
@@ -177,30 +183,27 @@
 
         <Button
             android:id="@+id/btnHome"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/parchase_home"
+            android:text="Home"
             android:textColor="@color/lightgray"
-            android:backgroundTint="@color/back_color"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/back_color"/>
 
         <Button
             android:id="@+id/btnSubmit"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/parchase_submit"
+            android:text="Submit"
             android:textColor="@color/lightgray"
-            android:backgroundTint="@color/back_color"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/back_color"/>
 
         <Button
             android:id="@+id/btnSeeStock"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/parchase_see_stock"
+            android:text="See Stock"
             android:textColor="@color/lightgray"
             android:backgroundTint="@color/back_color"/>
     </LinearLayout>

@@ -5,6 +5,15 @@
     android:orientation="vertical"
     android:background="@color/back_support">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sales History"
+        android:textColor="@color/back_color"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_marginBottom="20dp" />
+
     <ListView
         android:id="@+id/lv_sales_history"
         android:layout_width="match_parent"

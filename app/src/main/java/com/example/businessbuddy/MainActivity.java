@@ -7,7 +7,8 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.example.businessbuddy.R;
+import com.example.businessbuddy.SaleDir.SaleHistory;
+import com.example.businessbuddy.SaleDir.SalesEntry;
 
 public class MainActivity extends AppCompatActivity {
 
