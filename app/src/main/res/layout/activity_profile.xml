@@ -125,6 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:layout_gravity="center">
 
@@ -143,7 +144,7 @@
                         android:paddingBottom="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Change profile photo,Mobile \nnumber ,email,etc"
+                        android:text="Change profile photo, \n Mobile number etc"
                         android:textSize="15sp" />
 
 
@@ -153,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:text=">"
                     android:textSize="28dp"
-                    android:layout_marginStart="52dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_gravity="center"
                     />
             </LinearLayout>
@@ -179,6 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:layout_gravity="center">
 
@@ -207,7 +209,7 @@
                     android:layout_height="wrap_content"
                     android:text=">"
                     android:textSize="28dp"
-                    android:layout_marginStart="52dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_gravity="center"
                     />
             </LinearLayout>
@@ -232,6 +234,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
                     android:layout_gravity="center">
 
@@ -260,7 +263,7 @@
                     android:layout_height="wrap_content"
                     android:text=">"
                     android:textSize="28dp"
-                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_gravity="center"
 
                     />
