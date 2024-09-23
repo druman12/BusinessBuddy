@@ -29,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
+        android:maxLength="10"
         android:hint="Enter contact number"
         android:textColorHint="@color/text_color"/>
 
@@ -44,25 +45,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/black"
             android:text="Item Code"
             android:textStyle="bold"
-            android:gravity="center"/>
+            android:gravity="start"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Quantity"
+            android:textColor="@color/black"
             android:textStyle="bold"
-            android:gravity="center"/>
+            android:gravity="start"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Amount"
+            android:textColor="@color/black"
             android:textStyle="bold"
-            android:gravity="center"/>
+            android:gravity="start"/>
     </LinearLayout>
 
     <!-- Container for dynamic rows -->
@@ -141,12 +145,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="cash"
+                android:textColor="@color/black"
                 android:checked="true"/>
 
             <RadioButton
                 android:id="@+id/rb_online"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="online" />
         </RadioGroup>
 

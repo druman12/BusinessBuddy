@@ -100,6 +100,7 @@ public class PurchaseEntry extends Activity {
                     if(supplierContact.getText().toString().length() ==10){
                         submitData();
                         Toast.makeText(PurchaseEntry.this, "Parchase Entry done sucessfully", Toast.LENGTH_SHORT).show();
+                        clearForm();
                     }
                     else{
                         Toast.makeText(PurchaseEntry.this, "Error , Please check Mobile Number !!", Toast.LENGTH_SHORT).show();
@@ -141,6 +142,8 @@ public class PurchaseEntry extends Activity {
         EditText itemCode = new EditText(this);
         itemCode.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
         itemCode.setHint("Item Code");
+        itemCode.setHintTextColor(getColor(R.color.black));
+        itemCode.setTextColor(getColor(R.color.black));
         itemCode.setTextSize(13);
         itemCode.setSingleLine(true);
 
@@ -148,25 +151,35 @@ public class PurchaseEntry extends Activity {
         itemName.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
         itemName.setHint("Item Name");
         itemName.setTextSize(13);
+        itemName.setHintTextColor(getColor(R.color.black));
+        itemName.setTextColor(getColor(R.color.black));
         itemName.setSingleLine(true);
 
         EditText category = new EditText(this);
         category.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
         category.setHint("Category");
+        category.setHintTextColor(getColor(R.color.black));
+        category.setTextColor(getColor(R.color.black));
         category.setTextSize(14);
 
         EditText price = new EditText(this);
         price.setHint("Price");
         price.setTextSize(14);
+        price.setHintTextColor(getColor(R.color.black));
+        price.setTextColor(getColor(R.color.black));
         price.setInputType(android.text.InputType.TYPE_CLASS_NUMBER | android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         EditText quantity = new EditText(this);
         quantity.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
         quantity.setHint("Quantity");
         quantity.setTextSize(14);
+        quantity.setHintTextColor(getColor(R.color.black));
+        quantity.setTextColor(getColor(R.color.black));
         quantity.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
 
         TextView totalAmount = new TextView(this);
+        totalAmount.setTextColor(getColor(R.color.black));
+        totalAmount.setTextColor(getColor(R.color.black));
         totalAmount.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
         totalAmount.setText("0.00");
 
@@ -274,7 +287,18 @@ public class PurchaseEntry extends Activity {
             itemDAO.addSupplier(code, supplierNameValue, supplierContactValue, paymentDateValue, paymentMode, quantityValue, totalAmountValue);
         }
     }
+    private void clearForm() {
+
+        supplierName.setText("");
+        supplierContact.setText("");
+        editDate.setText("");
+        textTotalBillAmount.setText("Total Bill Amount: 0.00");
 
 
+        tableItemDetails.removeViews(1, tableItemDetails.getChildCount() - 1);
+        itemRows.clear();
+
+
+    }
 
 }

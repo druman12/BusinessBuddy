@@ -119,7 +119,8 @@ public class SalesEntry extends AppCompatActivity {
         // Amount/TextView
         TextView amountTextView = new TextView(this);
         amountTextView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        amountTextView.setText("    0.00");
+        amountTextView.setText("0.00");
+        amountTextView.setPadding(20,0,0,0);
         amountTextView.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
 
@@ -193,6 +194,7 @@ public class SalesEntry extends AppCompatActivity {
 
                 if (codeEditText.equals(itemCodeEditText) && qtyEditText.equals(quantityEditText)) {
                     amtTextView.setText(String.format("%.2f", amount));
+                    amtTextView.setTextColor(getColor(R.color.black));
                 }
             }
 
@@ -210,6 +212,7 @@ public class SalesEntry extends AppCompatActivity {
             totalBill += amount;
         }
         tvTotalBill.setText(String.format("%.2f", totalBill));
+        tvTotalBill.setTextColor(getColor(R.color.black));
     }
 
     private void submitSale() {
@@ -253,6 +256,7 @@ public class SalesEntry extends AppCompatActivity {
         itemTableLayout.removeAllViews();
         addNewRow(); // Add a new empty row after clearing
         tvTotalBill.setText("0.00");
+        tvTotalBill.setTextColor(getColor(R.color.black));
         totalBill = 0.0;
     }
 }
