@@ -39,12 +39,14 @@
                         android:layout_height="wrap_content"
                         android:text="Customer ID"
                         android:textStyle="bold"
+                        android:textSize="22dp"
                         android:background="@drawable/table_cell_border"
                         android:padding="8dp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Contact No"
+                        android:textSize="22dp"
                         android:textStyle="bold"
                         android:background="@drawable/table_cell_border"
                         android:padding="8dp" />
@@ -52,6 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Payment Type"
+                        android:textSize="22dp"
                         android:textStyle="bold"
                         android:background="@drawable/table_cell_border"
                         android:padding="8dp" />
@@ -59,6 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total Bill"
+                        android:textSize="22dp"
                         android:textStyle="bold"
                         android:background="@drawable/table_cell_border"
                         android:padding="8dp" />
@@ -66,6 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Items Purchased"
+                        android:textSize="22dp"
                         android:textStyle="bold"
                         android:background="@drawable/table_cell_border"
                         android:padding="8dp" />

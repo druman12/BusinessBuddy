@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -73,10 +74,16 @@ public class SaleHistory extends AppCompatActivity {
                 try {
                     TextView customerId = new TextView(this);
                     customerId.setText(cursor.getString(cursor.getColumnIndexOrThrow("customer_id")));
+                    customerId.setTextColor(getColor(R.color.black));
+                    customerId.setTextSize(20);
+                    customerId.setGravity(Gravity.CENTER);
                     row.addView(customerId);
 
                     TextView contactNo = new TextView(this);
                     contactNo.setText(cursor.getString(cursor.getColumnIndexOrThrow("contact_no")));
+                    contactNo.setTextColor(getColor(R.color.black));
+                    contactNo.setTextSize(20);
+                    contactNo.setGravity(Gravity.CENTER);
                     row.addView(contactNo);
 
                     Log.d("SQL_QUERY", "CustomerID: " + cursor.getString(cursor.getColumnIndexOrThrow("customer_id")) +
@@ -85,14 +92,23 @@ public class SaleHistory extends AppCompatActivity {
 
                     TextView paymentType = new TextView(this);
                     paymentType.setText(cursor.getString(cursor.getColumnIndexOrThrow("payment_type")));
+                    paymentType.setTextColor(getColor(R.color.black));
+                    paymentType.setTextSize(20);
+                    paymentType.setGravity(Gravity.CENTER);
                     row.addView(paymentType);
 
                     TextView totalBill = new TextView(this);
                     totalBill.setText(cursor.getString(cursor.getColumnIndexOrThrow("total_bill")));
+                    totalBill.setTextColor(getColor(R.color.black));
+                    totalBill.setTextSize(20);
+                    totalBill.setGravity(Gravity.CENTER);
                     row.addView(totalBill);
 
                     TextView itemsPurchased = new TextView(this);
                     itemsPurchased.setText(cursor.getString(cursor.getColumnIndexOrThrow("items_purchased")));
+                    itemsPurchased.setTextColor(getColor(R.color.black));
+                    itemsPurchased.setTextSize(20);
+                    itemsPurchased.setGravity(Gravity.CENTER);
                     row.addView(itemsPurchased);
 
 

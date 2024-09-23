@@ -1,7 +1,10 @@
 package com.example.businessbuddy;
 
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -30,86 +33,26 @@ public class StockList extends AppCompatActivity {
             for (HashMap<String, String> item : itemList) {
                 TableRow row = new TableRow(this);
                 row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                row.setBackgroundResource(R.drawable.table_cell_border);
 
-                TextView itemCode = new TextView(this);
-                if (item.containsKey("ItemCode")) {
-                    itemCode.setText(item.get("ItemCode"));
-                } else {
-                    itemCode.setText("");
+
+
+                // Create an array of the keys to loop through each one
+                String[] keys = {"ItemCode", "ItemName", "ItemCategory", "Price", "Quantity", "SupplierName"};
+                for (String key : keys) {
+                    TextView textView = new TextView(this);
+                    textView.setText(item.getOrDefault(key, ""));
+                    textView.setTextSize(20);
+                    textView.setPadding(20, 20, 20, 20);
+                    textView.setTextColor(getColor(R.color.black));
+                    textView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+                    textView.setSingleLine(true);
+                    textView.setGravity(Gravity.CENTER); // Center the text
+
+
+                    // Add the TextView to the row
+                    row.addView(textView);
                 }
-                itemCode.setPadding(20, 20, 20, 20);
-                itemCode.setTextSize(16);
-                itemCode.setTextColor(getColor(R.color.black));
-                itemCode.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-                itemCode.setSingleLine(true);
-
-                TextView itemName = new TextView(this);
-                if (item.containsKey("ItemName")) {
-                    itemName.setText(item.get("ItemName"));
-                } else {
-                    itemName.setText("");
-                }
-                itemName.setPadding(20, 20, 20, 20);
-                itemName.setTextSize(16);
-                itemName.setTextColor(getColor(R.color.black));
-                itemName.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-                itemName.setSingleLine(true);
-
-                TextView category = new TextView(this);
-                if (item.containsKey("ItemCategory")) {
-                    category.setText(item.get("ItemCategory"));
-                } else {
-                    category.setText("");
-                }
-                category.setPadding(20, 20, 20, 20);
-                category.setTextSize(16);
-                category.setTextColor(getColor(R.color.black));
-                category.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-                category.setSingleLine(true);
-
-                TextView price = new TextView(this);
-                if (item.containsKey("Price")) {
-                    price.setText(item.get("Price"));
-                } else {
-                    price.setText("");
-                }
-                price.setPadding(20, 20, 20, 20);
-                price.setTextSize(16);
-                price.setTextColor(getColor(R.color.black));
-                price.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-                price.setSingleLine(true);
-
-                TextView quantity = new TextView(this);
-                if (item.containsKey("Quantity")) {
-                    quantity.setText(item.get("Quantity"));
-                } else {
-                    quantity.setText("");
-                }
-                quantity.setPadding(20, 20, 20, 20);
-                quantity.setTextSize(16);
-                quantity.setTextColor(getColor(R.color.black));
-                quantity.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-                quantity.setSingleLine(true);
-
-                TextView supplierName = new TextView(this);
-                if (item.containsKey("SupplierName")) {
-                    supplierName.setText(item.get("SupplierName"));
-                } else {
-                    supplierName.setText("");
-                }
-                supplierName.setPadding(20, 20, 20, 20);
-                supplierName.setTextSize(16);
-                supplierName.setTextColor(getColor(R.color.black));
-                supplierName.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-                supplierName.setSingleLine(true);
-
-                // Add all TextViews to the row
-                row.addView(itemCode);
-                row.addView(itemName);
-                row.addView(category);
-                row.addView(price);
-                row.addView(quantity);
-                row.addView(supplierName);
 
                 // Add row to the TableLayout
                 tableLayout.addView(row);
@@ -142,3 +85,4 @@ public class StockList extends AppCompatActivity {
         });
     }
 }
+

@@ -31,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/add_contact_number"
+        android:maxLength="10"
         android:textColorHint="@color/back_color"
         android:textColor="@color/back_color"
         android:inputType="phone" />
@@ -162,12 +163,14 @@
                 android:id="@+id/radioCash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="Cash" />
 
             <RadioButton
                 android:id="@+id/radioDebit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="Debit" />
         </RadioGroup>
 
