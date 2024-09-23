@@ -7,59 +7,90 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Profile"
-    android:background="#ececec">
+    android:background="@color/back_color">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_amogus"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="140dp"
+        android:elevation="10dp"
+        android:src="@drawable/profile_image" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@drawable/btn_back">
+            android:layout_marginTop="-80dp"
+            android:background="@drawable/rounded_layout_background">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="405dp"
-                android:layout_height="239dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/propic" />
+
 
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="16dp">
+                android:gravity="center"
+                android:layout_margin="68dp">
 
-                <ImageView
-                    android:id="@+id/pro"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:background="@drawable/profile_shape"
-                    android:src="@drawable/profi" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_gravity="center"
                     android:layout_marginStart="10dp">
+
+
 
                     <TextView
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#"
+                        android:gravity="center"
                         android:textSize="25sp"
                         android:textStyle="bold" />
 
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/logoemail"
+                        android:layout_width="20dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/email_icon_profile1"
+                        />
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#"
-                        android:textSize="20sp" />
+                        android:layout_marginStart="4dp"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/logomobile"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/mobile_icon"/>
 
                     <TextView
                         android:id="@+id/textView4"
@@ -67,23 +98,133 @@
                         android:layout_height="wrap_content"
                         android:text="#"
                         android:textSize="20sp" />
+
+                    </LinearLayout>
                 </LinearLayout>
            </LinearLayout>
 
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="11dp"
+                android:background="@drawable/border_linear"
+                >
+
+                <ImageView
+                    android:id="@+id/logoEdit"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/profileedit"
+                    android:layout_marginStart="25dp"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/textEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit Profile"
+                        android:paddingTop="4dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/subEdit"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Change profile photo,Mobile \nnumber ,email,etc"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=">"
+                    android:textSize="28dp"
+                    android:layout_marginStart="52dp"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="11dp"
+                android:background="@drawable/border_linear"
+               >
+
+                <ImageView
+                    android:id="@+id/logodelete"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icondelet"
+                    android:layout_marginStart="25dp"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/textdelet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delete Account"
+                        android:layout_marginTop="4dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/subdelete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Delete your accound and all \nassociated data"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=">"
+                    android:textSize="28dp"
+                    android:layout_marginStart="52dp"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="16dp"
-                android:background="@drawable/profile_shape">
+                android:layout_margin="11dp"
+                android:background="@drawable/border_linear"
+                >
 
                 <ImageView
                     android:id="@+id/logoutpro"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/profile_shape"
-                    android:src="@drawable/plogout"
+                    android:src="@drawable/logoutimge"
                     android:layout_marginStart="25dp"
                     android:layout_gravity="center"/>
 
@@ -99,19 +240,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Logout"
+                        android:layout_marginTop="4dp"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/sublog"
                         android:layout_width="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="2dp"
                         android:layout_height="wrap_content"
                         android:text="Securely log out of account"
                         android:textSize="15sp" />
 
 
                 </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=">"
+                    android:textSize="28dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_gravity="center"
+
+                    />
             </LinearLayout>
+
 
 
 
@@ -119,20 +273,19 @@
                 android:id="@+id/button5"
                 style="@android:style/Widget.Button"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:backgroundTint="@color/back_color"
-                android:background="@color/back_color"
-                android:text="Back to Home Page"
+                android:layout_height="40dp"
+                android:background="@drawable/round_button"
+                android:text=" Home "
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
+                app:cornerRadius="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="200dp"
+                android:layout_marginEnd="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:layout_editor_absoluteX="-16dp" />
 
         </LinearLayout>
-
-    </ScrollView>
 
 </LinearLayout>

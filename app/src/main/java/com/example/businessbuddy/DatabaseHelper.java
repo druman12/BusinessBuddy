@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version and Name
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
     private static final String DATABASE_NAME = "BusinessBuddy.db";
 
     // Table names
@@ -171,6 +171,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return itemList;
     }
 
+    public boolean deleteUser(String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_REGISTER, COLUMN_EMAIL + "=?", new String[]{email}) > 0;
+    }
+
+
     @SuppressLint("Range")
     public String getName(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -193,6 +199,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("fatch name is",name);
         return name;
     }
+
 
     @SuppressLint("Range")
 
@@ -231,4 +238,6 @@ Log.d("fatch phone is",phone);
         return phone;
     }
 
+
 }
+

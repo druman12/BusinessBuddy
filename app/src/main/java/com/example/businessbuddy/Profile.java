@@ -1,5 +1,8 @@
 package com.example.businessbuddy;
 
+import static com.example.businessbuddy.DatabaseHelper.COLUMN_EMAIL;
+import static com.example.businessbuddy.DatabaseHelper.COLUMN_REGISTER_ID;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -23,6 +27,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class Profile extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 2;
@@ -34,6 +42,12 @@ public class Profile extends AppCompatActivity {
     private TextView profilephoneTextView;
     private DatabaseHelper dbHelper;
     private LinearLayout linearLayout;
+    private LinearLayout linearLayout1;
+    private LinearLayout linearLayout4;
+    String email;
+
+
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,19 +56,38 @@ public class Profile extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
 
-        button5=(Button)findViewById(R.id.button5);
-            button5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Profile.this, MainActivity.class);
-                    startActivity(intent);
-                }
-            });
+        button5 = (Button) findViewById(R.id.button5);
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         profileNameTextView = findViewById(R.id.textView2);
         profileEmailTextView = findViewById(R.id.textView3);
         profilephoneTextView = findViewById(R.id.textView4);
-        linearLayout=findViewById(R.id.linearLayout2);
+        linearLayout = findViewById(R.id.linearLayout2);
+        linearLayout1=findViewById(R.id.linearLayout3);
+        linearLayout4=findViewById(R.id.linearLayout4);
+
+        linearLayout4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, Editprofile.class);
+                startActivity(intent);
+            }
+        });
+
+        linearLayout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteAccount();
+                Intent intent = new Intent(Profile.this, SignUp.class);
+                startActivity(intent);
+            }
+        });
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +102,8 @@ public class Profile extends AppCompatActivity {
 
         // Retrieve profile information from shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences("login_session", MODE_PRIVATE);
-        String email = sharedPreferences.getString("email", "#");
-        Log.d("fetched data from shred pref",email);
+        email = sharedPreferences.getString("email", "#");
+        Log.d("fetched data from shred pref", email);
 
         // Display profile information on the screen
 
@@ -82,40 +115,24 @@ public class Profile extends AppCompatActivity {
         profileNameTextView.setText(name);
         profilephoneTextView.setText(phone);
 
-
-
-        profileImageView = (ImageView) findViewById(R.id.pro);
-        profileImageView.setOnClickListener(v -> openGallery());
-
-        profileImageView.setOnClickListener(v -> openGallery());
-
-        profileImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, SELECT_PHOTO);
-            }
-        });
     }
+    private void deleteAccount() {
+        // Log the email for debugging
+        Log.d("DeleteAccount", "Attempting to delete account with email: " + email);
 
-    private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri imageUri = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                profileImageView.setImageBitmap(bitmap);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        boolean isDeleted = dbHelper.deleteUser(email);
+        if (isDeleted) {
+            Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            Toast.makeText(this, "Failed to delete account", Toast.LENGTH_SHORT).show();
         }
-
     }
+
+
 }
+
+
+
+
+
