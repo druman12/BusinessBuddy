@@ -8,7 +8,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.example.businessbuddy.SaleDir.SalesEntry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +63,7 @@ public class ItemDAO {
 
     // Add new supplier
     public void addSupplier(String itemCode, String supplierName, String contactNumber, String paymentDate, String paymentType, int totalQuantity, double totalBillAmount) {
+        Log.d("come from entry to...",supplierName+" "+contactNumber+" "+paymentDate);
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_SUPPLIER_ITEMCODE, itemCode);
         values.put(DatabaseHelper.COLUMN_SUPPLIER_NAME, supplierName);
@@ -98,16 +102,17 @@ public class ItemDAO {
         int currentQuantity = getItemQuantity(itemCode);
 
         // Calculate the new quantity
-        int newQuantity = currentQuantity - quantitySold;
 
-        // Update the item table with the new quantity
+
+        int newQuantity = currentQuantity - quantitySold;
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_ITEM_QUANTITY, newQuantity);
 
         database.update(TABLE_ITEM, values, DatabaseHelper.COLUMN_ITEMCODE + " = ?", new String[]{itemCode});
+
     }
     @SuppressLint("Range")
-    private int getItemQuantity(String itemCode) {
+    public static int getItemQuantity(String itemCode) {
         int quantity = 0;
         String query = "SELECT " + DatabaseHelper.COLUMN_ITEM_QUANTITY + " FROM " + TABLE_ITEM +
                 " WHERE " + DatabaseHelper.COLUMN_ITEMCODE + " = ?";
@@ -145,8 +150,4 @@ public class ItemDAO {
 
 
     }
-
-
-
-
 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -284,7 +285,9 @@ public class PurchaseEntry extends Activity {
             itemDAO.addItem(code, name, cat, quantityValue, priceValue);
 
             // Add supplier to the database with fetched data
+            Log.d("Suppier data",supplierNameValue +" "+ supplierContactValue +" "+paymentDateValue);
             itemDAO.addSupplier(code, supplierNameValue, supplierContactValue, paymentDateValue, paymentMode, quantityValue, totalAmountValue);
+
         }
     }
     private void clearForm() {
