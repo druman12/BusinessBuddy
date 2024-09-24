@@ -162,13 +162,14 @@
                     android:layout_height="wrap_content"
                     android:text="Mobile No"
                     android:layout_marginTop="4dp"
-                    android:maxLength="10"
+
                     android:textSize="20dp"
                     />
 
                 <EditText
                     android:id="@+id/edit_mobile_no"
                     android:layout_width="250dp"
+                    android:maxLength="10"
                     android:layout_height="wrap_content"
                     android:hint="Mobile No" />
 

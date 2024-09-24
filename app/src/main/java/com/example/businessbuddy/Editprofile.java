@@ -80,31 +80,40 @@ public class Editprofile extends AppCompatActivity {
     }
 
     private void saveChanges() {
-        String name = editName.getText().toString();
-        String mobileNo = editMobileNo.getText().toString();
-        String password = editPassword.getText().toString();
+        String name = editName.getText().toString().trim();
+        String mobileNo = editMobileNo.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
 
         SharedPreferences sharedPreferences = getSharedPreferences("login_session", MODE_PRIVATE);
         String email = sharedPreferences.getString("email", "#");
 
-        if (name.isEmpty() || mobileNo.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_NAME, name);
-        values.put(DatabaseHelper.COLUMN_MOBILE_NO, mobileNo);
-        values.put(DatabaseHelper.COLUMN_PASSWORD, password);
+
+        // Only add the fields that are not empty
+        if (!name.isEmpty()) {
+            values.put(DatabaseHelper.COLUMN_NAME, name);
+        }
+        if (!mobileNo.isEmpty() && mobileNo.length()==10){
+            values.put(DatabaseHelper.COLUMN_MOBILE_NO, mobileNo);
+        }
+        if (!password.isEmpty()) {
+            values.put(DatabaseHelper.COLUMN_PASSWORD, password);
+        }
+
+        // Check if there are any values to update
+        if (values.size() == 0) {
+            Toast.makeText(this, "No changes to save", Toast.LENGTH_SHORT).show();
+            db.close();
+            return;
+        }
 
         int rowsAffected = db.update(DatabaseHelper.TABLE_REGISTER, values,
                 DatabaseHelper.COLUMN_EMAIL + " = ?", new String[]{email}); // Use email instead of userId
 
         if (rowsAffected > 0) {
             Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-            Intent i=new Intent(Editprofile.this, Profile.class);
-
+            Intent i = new Intent(Editprofile.this, Profile.class);
             finish();
             startActivity(i);
         } else {
@@ -112,6 +121,7 @@ public class Editprofile extends AppCompatActivity {
         }
         db.close();
     }
+
 
 
 }
