@@ -121,14 +121,16 @@ public class SalesEntry extends AppCompatActivity {
         EditText itemCodeEditText = new EditText(this);
         itemCodeEditText.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         itemCodeEditText.setHint("Item Code");
-        itemCodeEditText.setHintTextColor(getColor(R.color.black));
+        itemCodeEditText.setTextColor(getColor(R.color.black));
+        itemCodeEditText.setHintTextColor(getColor(R.color.text_color));
         itemCodeEditText.addTextChangedListener(new ItemCodeTextWatcher(itemCodeEditText));
 
         // Quantity/EditText
         EditText quantityEditText = new EditText(this);
         quantityEditText.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         quantityEditText.setHint("Quantity");
-        quantityEditText.setHintTextColor(getColor(R.color.black));
+        quantityEditText.setTextColor(getColor(R.color.black));
+        quantityEditText.setHintTextColor(getColor(R.color.text_color));
         quantityEditText.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
         quantityEditText.addTextChangedListener(new QuantityTextWatcher(quantityEditText, itemCodeEditText));
 
@@ -136,6 +138,8 @@ public class SalesEntry extends AppCompatActivity {
         TextView amountTextView = new TextView(this);
         amountTextView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         amountTextView.setText("0.00");
+        amountTextView.setTextColor(getColor(R.color.black));
+        amountTextView.setHintTextColor(getColor(R.color.text_color));
         amountTextView.setPadding(20,0,0,0);
         amountTextView.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
@@ -194,21 +198,14 @@ public class SalesEntry extends AppCompatActivity {
 
         if (!itemCode.isEmpty() && !quantityStr.isEmpty()) {
             int quantity = Integer.parseInt(quantityStr);
-            double price = itemDAO.getItemPrice(userId,itemCode);
+            double price = itemDAO.getItemPrice(userId, itemCode); // Ensure item price is fetched correctly
             double amount = price * quantity;
 
-            // Update the corresponding amount TextView
-            for (int i = 0; i < itemTableLayout.getChildCount(); i++) {
-                LinearLayout row = (LinearLayout) itemTableLayout.getChildAt(i);
-                EditText codeEditText = (EditText) row.getChildAt(0);
-                EditText qtyEditText = (EditText) row.getChildAt(1);
-                TextView amtTextView = (TextView) row.getChildAt(2);
-
-                if (codeEditText.equals(itemCodeEditText) && qtyEditText.equals(quantityEditText)) {
-                    amtTextView.setText(String.format("%.2f", amount));
-                    amtTextView.setTextColor(getColor(R.color.black));
-                }
-            }
+            // Update the amount TextView for the same row
+            LinearLayout parentRow = (LinearLayout) quantityEditText.getParent();
+            TextView amountTextView = (TextView) parentRow.getChildAt(2); // Get the amount TextView in the same row
+            amountTextView.setText(String.format("%.2f", amount));
+            amountTextView.setTextColor(getColor(R.color.black));
 
             // Recalculate total bill
             updateTotalBill();
@@ -217,11 +214,16 @@ public class SalesEntry extends AppCompatActivity {
 
     private void updateTotalBill() {
         totalBill = 0.0;
+        // Iterate through all rows in the itemTableLayout
         for (int i = 0; i < itemTableLayout.getChildCount(); i++) {
             LinearLayout row = (LinearLayout) itemTableLayout.getChildAt(i);
             TextView amountTextView = (TextView) row.getChildAt(2);
-            double amount = Double.parseDouble(amountTextView.getText().toString());
-            totalBill += amount;
+            String amountStr = amountTextView.getText().toString();
+
+            if (!amountStr.isEmpty()) {
+                double amount = Double.parseDouble(amountStr);
+                totalBill += amount;
+            }
         }
         tvTotalBill.setText(String.format("%.2f", totalBill));
         tvTotalBill.setTextColor(getColor(R.color.black));
@@ -229,12 +231,12 @@ public class SalesEntry extends AppCompatActivity {
 
     private void submitSale() {
         String contactNo = etContactNumber.getText().toString();
-        String paymentType = getSelectedPaymentType().toString();
+        String paymentType = getSelectedPaymentType();
 
         // Insert customer and get customer ID
-        Integer customerId = customerDAO.insertCustomer(contactNo, paymentType, totalBill,userId);
+        Integer customerId = customerDAO.insertCustomer(contactNo, paymentType, totalBill, userId);
 
-        // Iterate over rows and insert sales data
+        // Iterate over all rows and insert sales data
         for (int i = 0; i < itemTableLayout.getChildCount(); i++) {
             LinearLayout row = (LinearLayout) itemTableLayout.getChildAt(i);
             EditText itemCodeEditText = (EditText) row.getChildAt(0);
@@ -242,28 +244,32 @@ public class SalesEntry extends AppCompatActivity {
             TextView amountTextView = (TextView) row.getChildAt(2);
 
             String itemCode = itemCodeEditText.getText().toString();
-            int quantity = Integer.parseInt(quantityEditText.getText().toString());
-            double amount = Double.parseDouble(amountTextView.getText().toString());
+            String quantityStr = quantityEditText.getText().toString();
+            String amountStr = amountTextView.getText().toString();
 
-            int currentQuantity = ItemDAO.getItemQuantity(userId,itemCode);
+            if (!itemCode.isEmpty() && !quantityStr.isEmpty() && !amountStr.isEmpty()) {
+                int quantity = Integer.parseInt(quantityStr);
+                double amount = Double.parseDouble(amountStr);
 
-            if(currentQuantity >= quantity){
-                // Create SaleItem and insert into SaleDAO
-                SaleItem saleItem = new SaleItem(itemCode, quantity, amount);
-                saleDAO.insertSale(userId,customerId, saleItem);
+                int currentQuantity = itemDAO.getItemQuantity(userId, itemCode);
 
-                // Update item quantity
-                itemDAO.updateItemQuantity(userId,itemCode, quantity);
+                if (currentQuantity >= quantity) {
+                    // Create SaleItem and insert into SaleDAO
+                    SaleItem saleItem = new SaleItem(itemCode, quantity, amount);
+                    saleDAO.insertSale(userId, customerId, saleItem);
 
-                Toast.makeText(this, "Sale completed!", Toast.LENGTH_SHORT).show();
-                clearForm();
-            }else{
-                Toast.makeText(this, "May be Sale quantity is higher then availabale stock!!!", Toast.LENGTH_SHORT).show();
+                    // Update item quantity
+                    itemDAO.updateItemQuantity(userId, itemCode, quantity);
+                } else {
+                    Toast.makeText(this, "Sale quantity is higher than available stock!", Toast.LENGTH_SHORT).show();
+                }
             }
-
         }
 
+        Toast.makeText(this, "Sale completed!", Toast.LENGTH_SHORT).show();
+        clearForm();
     }
+
 
     private String getSelectedPaymentType() {
         int selectedId = rgPaymentType.getCheckedRadioButtonId();

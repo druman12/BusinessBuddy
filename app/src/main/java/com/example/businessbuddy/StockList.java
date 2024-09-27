@@ -34,11 +34,18 @@ public class StockList extends AppCompatActivity {
             // Initialize the TableLayout
             TableLayout tableLayout = findViewById(R.id.stock_table);
 
-            for (HashMap<String, String> item : itemList) {
-                TableRow row = new TableRow(this);
-                row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
-                row.setBackgroundResource(R.drawable.table_cell_border);
 
+
+            for (HashMap<String, String> item : itemList) {
+
+                TableRow row = new TableRow(this);
+
+                TableRow.LayoutParams rowLayoutParams = new TableRow.LayoutParams(
+                        TableRow.LayoutParams.MATCH_PARENT,  // Width: match parent
+                        TableRow.LayoutParams.WRAP_CONTENT   // Height: wrap content
+                );
+                row.setBackgroundResource(R.drawable.table_cell_border);
+                row.setLayoutParams(rowLayoutParams);
 
 
                 // Create an array of the keys to loop through each one
@@ -47,13 +54,18 @@ public class StockList extends AppCompatActivity {
                     TextView textView = new TextView(this);
                     textView.setText(item.getOrDefault(key, ""));
                     textView.setTextSize(20);
-                    textView.setPadding(20, 20, 20, 20);
+                    textView.setPadding(16, 16, 16, 16);
                     textView.setTextColor(getColor(R.color.black));
-                    textView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
                     textView.setSingleLine(true);
+                    textView.setBackgroundResource(R.drawable.table_cell_border);
                     textView.setGravity(Gravity.CENTER); // Center the text
 
-
+                    TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
+                            TableRow.LayoutParams.MATCH_PARENT,  // Width
+                            TableRow.LayoutParams.WRAP_CONTENT   // Height
+                    );
+                    layoutParams.setMargins(1, 1, 1, 1);  // Set margins to avoid gaps between borders
+                    textView.setLayoutParams(layoutParams);
                     // Add the TextView to the row
                     row.addView(textView);
                 }

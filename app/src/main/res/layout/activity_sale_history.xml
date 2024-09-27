@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/back_support">
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -40,6 +47,7 @@
                         android:text="Customer ID"
                         android:textStyle="bold"
                         android:textSize="22dp"
+                        android:textColor="@color/black"
                         android:background="@drawable/table_cell_border"
                         android:padding="8dp" />
                     <TextView
@@ -47,6 +55,7 @@
                         android:layout_height="wrap_content"
                         android:text="Contact No"
                         android:textSize="22dp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:background="@drawable/table_cell_border"
                         android:padding="8dp" />
@@ -55,6 +64,7 @@
                         android:layout_height="wrap_content"
                         android:text="Payment Type"
                         android:textSize="22dp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:background="@drawable/table_cell_border"
                         android:padding="8dp" />
@@ -64,6 +74,7 @@
                         android:text="Total Bill"
                         android:textSize="22dp"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:background="@drawable/table_cell_border"
                         android:padding="8dp" />
                     <TextView
@@ -71,6 +82,7 @@
                         android:layout_height="wrap_content"
                         android:text="Items Purchased"
                         android:textSize="22dp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:background="@drawable/table_cell_border"
                         android:padding="8dp" />
@@ -90,3 +102,4 @@
         android:textColor="@color/lightgray"
         android:layout_marginTop="16dp"/>
 </LinearLayout>
+</ScrollView>
