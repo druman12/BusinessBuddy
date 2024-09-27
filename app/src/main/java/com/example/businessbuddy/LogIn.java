@@ -40,7 +40,7 @@ public class LogIn extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                    startActivity(new Intent(LogIn.this, SignUp.class));
+                startActivity(new Intent(LogIn.this, SignUp.class));
 
             }
         });
@@ -58,7 +58,7 @@ public class LogIn extends AppCompatActivity {
                     Toast.makeText(LogIn.this,"please enter all fileds",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Boolean checkuserpass=itemDAO.checkusernamepassword(email1,pass);
+                    Boolean checkuserpass=itemDAO.checkUsernamePassword(email1,pass);
 
                     if(checkuserpass)
                     {

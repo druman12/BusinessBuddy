@@ -2,10 +2,14 @@ package com.example.businessbuddy;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,6 +30,10 @@ import android.widget.Toast;
 
 public class PurchaseEntry extends Activity {
 
+    private SharedPreferences sharedPreferences;
+    private DatabaseHelper dbHelper;
+    private int userId;
+
     private TableLayout tableItemDetails;
     private Button btnAddMore;
     private Button btnSubmit;
@@ -39,10 +47,17 @@ public class PurchaseEntry extends Activity {
     private List<TableRow> itemRows = new ArrayList<>();
     private DecimalFormat df = new DecimalFormat("0.00");
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parchase_entry);
+
+        dbHelper = new DatabaseHelper(this);
+        sharedPreferences=getSharedPreferences("login_session", MODE_PRIVATE);
+        String email=sharedPreferences.getString("email",null);
+        userId= dbHelper.getUserId(email);
+
 
         tableItemDetails = findViewById(R.id.tableItemDetails);
         btnAddMore = findViewById(R.id.btnAddMore);
@@ -93,7 +108,7 @@ public class PurchaseEntry extends Activity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                               if(supplierName.getText().toString().equals("") && supplierContact.getText().toString().equals("") && supplierContact.getText().toString().length() !=10 ){
+                if(supplierName.getText().toString().equals("") && supplierContact.getText().toString().equals("") && supplierContact.getText().toString().length() !=10 ){
                     Toast.makeText(PurchaseEntry.this, "Please fill all fields correctly !!", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -254,7 +269,7 @@ public class PurchaseEntry extends Activity {
         // Get selected payment mode
         int selectedId = radioGroupPaymentMode.getCheckedRadioButtonId();
         RadioButton selectedPaymentMode = findViewById(selectedId);
-        String paymentMode = selectedPaymentMode != null ? selectedPaymentMode.getText().toString() : "Cash";
+        String paymentMode = selectedPaymentMode != null ? selectedPaymentMode.getText().toString() : "cash";
 
         // Fetch supplier data
         String supplierNameValue = supplierName.getText().toString().trim();
@@ -280,11 +295,11 @@ public class PurchaseEntry extends Activity {
             int quantityValue = Integer.parseInt(quantity.getText().toString().trim());
             double totalAmountValue = Double.parseDouble(totalAmount.getText().toString().trim());
 
+            Log.d("Suppier data",supplierNameValue +" "+ supplierContactValue +" "+paymentDateValue);
+            itemDAO.addSupplier(userId,code, supplierNameValue, supplierContactValue, paymentDateValue, paymentMode, quantityValue, totalAmountValue);
             // Add item to the database
-            itemDAO.addItem(code, name, cat, quantityValue, priceValue);
+            itemDAO.addItem(userId,code, name, cat, quantityValue, priceValue,supplierNameValue);
 
-            // Add supplier to the database with fetched data
-            itemDAO.addSupplier(code, supplierNameValue, supplierContactValue, paymentDateValue, paymentMode, quantityValue, totalAmountValue);
         }
     }
     private void clearForm() {
@@ -294,10 +309,8 @@ public class PurchaseEntry extends Activity {
         editDate.setText("");
         textTotalBillAmount.setText("Total Bill Amount: 0.00");
 
-
         tableItemDetails.removeViews(1, tableItemDetails.getChildCount() - 1);
         itemRows.clear();
-
 
     }
 

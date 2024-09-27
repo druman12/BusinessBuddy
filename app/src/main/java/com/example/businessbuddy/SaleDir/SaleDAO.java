@@ -15,8 +15,9 @@ public class SaleDAO {
         database = dbHelper.getWritableDatabase();
     }
 
-    public long insertSale(int customerId, SaleItem saleItem) {
+    public long insertSale(int userId, int customerId, SaleItem saleItem) {
         ContentValues values = new ContentValues();
+        values.put("user_id", userId);
         values.put("customer_id", customerId);
         values.put("itemcode", saleItem.getItemCode());
         values.put("quantity", saleItem.getQuantity());
@@ -24,7 +25,4 @@ public class SaleDAO {
 
         return database.insert("sales", null, values);
     }
-
-
 }
-

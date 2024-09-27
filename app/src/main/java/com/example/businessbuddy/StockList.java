@@ -2,6 +2,7 @@ package com.example.businessbuddy;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -25,7 +26,10 @@ public class StockList extends AppCompatActivity {
         DatabaseHelper db = new DatabaseHelper(this);
 
         try {
-            ArrayList<HashMap<String, String>> itemList = db.getAllItemsAndSuppliers();
+            SharedPreferences sharedPreferences = getSharedPreferences("login_session", MODE_PRIVATE);
+            String email=sharedPreferences.getString("email",null);
+            int userId= db.getUserId(email);
+            ArrayList<HashMap<String, String>> itemList = db.getAllItemsAndSuppliers(userId);
 
             // Initialize the TableLayout
             TableLayout tableLayout = findViewById(R.id.stock_table);

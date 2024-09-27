@@ -1,6 +1,9 @@
 package com.example.businessbuddy.SaleDir;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,11 +19,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.businessbuddy.CustomerDAO;
+import com.example.businessbuddy.DatabaseHelper;
 import com.example.businessbuddy.ItemDAO;
 import com.example.businessbuddy.MainActivity;
 import com.example.businessbuddy.R;
 
 public class SalesEntry extends AppCompatActivity {
+
+    private SharedPreferences sharedPreferences;
+    private DatabaseHelper dbHelper;
+    private int userId;
 
     private EditText etContactNumber;
     private RadioGroup rgPaymentType;
@@ -34,10 +42,16 @@ public class SalesEntry extends AppCompatActivity {
     private CustomerDAO customerDAO;
     private SaleDAO saleDAO;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales_entry);
+
+        dbHelper = new DatabaseHelper(this);
+        sharedPreferences=getSharedPreferences("login_session", MODE_PRIVATE);
+        String email=sharedPreferences.getString("email",null);
+        userId= dbHelper.getUserId(email);
 
         etContactNumber = findViewById(R.id.et_contact_number);
         rgPaymentType = findViewById(R.id.rg_payment_type);
@@ -52,6 +66,8 @@ public class SalesEntry extends AppCompatActivity {
         itemDAO = new ItemDAO(this);
         customerDAO = new CustomerDAO(this);
         saleDAO = new SaleDAO(this);
+
+
 
         // Add initial row
         addNewRow();
@@ -141,17 +157,13 @@ public class SalesEntry extends AppCompatActivity {
         }
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // Optional: Handle item code changes if needed
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
-        public void afterTextChanged(Editable s) {
-            // Optional: Calculate amount if needed
-        }
+        public void afterTextChanged(Editable s) {}
     }
 
     private class QuantityTextWatcher implements TextWatcher {
@@ -182,7 +194,7 @@ public class SalesEntry extends AppCompatActivity {
 
         if (!itemCode.isEmpty() && !quantityStr.isEmpty()) {
             int quantity = Integer.parseInt(quantityStr);
-            double price = itemDAO.getItemPrice(itemCode);
+            double price = itemDAO.getItemPrice(userId,itemCode);
             double amount = price * quantity;
 
             // Update the corresponding amount TextView
@@ -220,7 +232,7 @@ public class SalesEntry extends AppCompatActivity {
         String paymentType = getSelectedPaymentType().toString();
 
         // Insert customer and get customer ID
-        Integer customerId = customerDAO.insertCustomer(contactNo, paymentType, totalBill);
+        Integer customerId = customerDAO.insertCustomer(contactNo, paymentType, totalBill,userId);
 
         // Iterate over rows and insert sales data
         for (int i = 0; i < itemTableLayout.getChildCount(); i++) {
@@ -233,16 +245,24 @@ public class SalesEntry extends AppCompatActivity {
             int quantity = Integer.parseInt(quantityEditText.getText().toString());
             double amount = Double.parseDouble(amountTextView.getText().toString());
 
-            // Create SaleItem and insert into SaleDAO
-            SaleItem saleItem = new SaleItem(itemCode, quantity, amount);
-            saleDAO.insertSale(customerId, saleItem);
+            int currentQuantity = ItemDAO.getItemQuantity(userId,itemCode);
 
-            // Update item quantity
-            itemDAO.updateItemQuantity(itemCode, quantity);
+            if(currentQuantity >= quantity){
+                // Create SaleItem and insert into SaleDAO
+                SaleItem saleItem = new SaleItem(itemCode, quantity, amount);
+                saleDAO.insertSale(userId,customerId, saleItem);
+
+                // Update item quantity
+                itemDAO.updateItemQuantity(userId,itemCode, quantity);
+
+                Toast.makeText(this, "Sale completed!", Toast.LENGTH_SHORT).show();
+                clearForm();
+            }else{
+                Toast.makeText(this, "May be Sale quantity is higher then availabale stock!!!", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
-        Toast.makeText(this, "Sale completed!", Toast.LENGTH_SHORT).show();
-        clearForm();
     }
 
     private String getSelectedPaymentType() {
