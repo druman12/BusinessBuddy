@@ -35,15 +35,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Profile extends AppCompatActivity {
-    private static final int PICK_IMAGE_REQUEST = 2;
+
     private Button button5;
-    private static final int SELECT_PHOTO = 1;
-    private ImageView profileImageView;
     private TextView profileNameTextView;
     private TextView profileEmailTextView;
     private TextView profilephoneTextView;
     private DatabaseHelper dbHelper;
-    private LinearLayout linearLayout;
+    private LinearLayout logoutlinearLayout;
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout4;
     String email;
@@ -64,13 +62,14 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Profile.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
         profileNameTextView = findViewById(R.id.textView2);
         profileEmailTextView = findViewById(R.id.textView3);
         profilephoneTextView = findViewById(R.id.textView4);
-        linearLayout = findViewById(R.id.linearLayout2);
+        logoutlinearLayout = findViewById(R.id.linearLayout2);
         linearLayout1=findViewById(R.id.linearLayout3);
         linearLayout4=findViewById(R.id.linearLayout4);
 
@@ -87,10 +86,11 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
 
                 showDeleteConfirmationDialog();
+                finish();
             }
         });
 
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        logoutlinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Profile.this, LogIn.class);
@@ -122,7 +122,7 @@ public class Profile extends AppCompatActivity {
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Delete Account");
-        builder.setMessage("Are you sure you want to delete your account? This action cannot be undone.");
+        builder.setMessage("Are you sure you want to delete your account?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
