@@ -48,18 +48,17 @@ public class SaleHistory extends AppCompatActivity {
     }
 
     private void loadSaleHistory() {
-        // Correct the SQL query to match your database schema
+        // SQL query updated to match your schema
         String query = "SELECT customer.customer_id, customer.contact_no, customer.payment_type, customer.total_bill, " +
                 "GROUP_CONCAT(sales.itemcode, ',') AS items_purchased " +
                 "FROM sales " +
                 "JOIN customer ON sales.customer_id = customer.customer_id " +
+                "JOIN register ON sales.user_id = register.user_id " + // Join with the register table to get the user-specific sales
                 "GROUP BY customer.customer_id";
 
         Cursor cursor = null;
         try {
             cursor = database.rawQuery(query, null);
-
-
 
             // Check if the cursor is empty
             if (cursor == null || !cursor.moveToFirst()) {
@@ -89,7 +88,6 @@ public class SaleHistory extends AppCompatActivity {
                     Log.d("SQL_QUERY", "CustomerID: " + cursor.getString(cursor.getColumnIndexOrThrow("customer_id")) +
                             ", Contact: " + cursor.getString(cursor.getColumnIndexOrThrow("contact_no")));
 
-
                     TextView paymentType = new TextView(this);
                     paymentType.setText(cursor.getString(cursor.getColumnIndexOrThrow("payment_type")));
                     paymentType.setTextColor(getColor(R.color.black));
@@ -110,7 +108,6 @@ public class SaleHistory extends AppCompatActivity {
                     itemsPurchased.setTextSize(20);
                     itemsPurchased.setGravity(Gravity.CENTER);
                     row.addView(itemsPurchased);
-
 
                 } catch (Exception e) {
                     Toast.makeText(this, "Error parsing row data: " + e.getMessage(), Toast.LENGTH_SHORT).show();

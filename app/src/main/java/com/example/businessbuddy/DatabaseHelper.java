@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version and Name
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 10;
     private static final String DATABASE_NAME = "BusinessBuddy.db";
 
     // Table names
@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_CUSTOMER = "customer";
     public static final String TABLE_SALES = "sales";
     public static final String TABLE_SUPPLIER = "supplier";
-    public static final String TABLE_REGISTER="register";
+    public static final String TABLE_REGISTER = "register";
 
     // Item Table Columns
     public static final String COLUMN_ITEMCODE = "itemcode";
@@ -29,12 +29,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ITEM_CATEGORY = "category";
     public static final String COLUMN_ITEM_PRICE = "price";
     public static final String COLUMN_ITEM_QUANTITY = "quantity";
+    public static final String COLUMN_ITEM_USER_ID = "user_id";
+    public static final String COLUMN_ITEM_SUPPLIER_ID="supplier_id";
 
     // Customer Table Columns
     public static final String COLUMN_CUSTOMER_ID = "customer_id";
     public static final String COLUMN_CUSTOMER_CONTACT_NO = "contact_no";
     public static final String COLUMN_PAYMENT_TYPE = "payment_type";
     public static final String COLUMN_TOTAL_BILL = "total_bill";
+    public static final String COLUMN_CUSTOMER_USER_ID = "user_id"; // New column for user ID
 
     // Sales Table Columns
     public static final String COLUMN_SALE_ID = "sale_id";
@@ -42,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SALE_ITEMCODE = "itemcode";
     public static final String COLUMN_SALE_QUANTITY = "quantity";
     public static final String COLUMN_TOTAL_PRICE = "total_price";
+    public static final String COLUMN_SALE_USER_ID = "user_id"; // New column for user ID
 
     // Supplier Table Columns
     public static final String COLUMN_SUPPLIER_ID = "supplier_id";
@@ -52,16 +56,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SUPPLIER_PAYMENT_TYPE = "payment_type";
     public static final String COLUMN_SUPPLIER_TOTAL_QUANTITY = "total_quantity";
     public static final String COLUMN_SUPPLIER_TOTAL_BILL_AMOUNT = "total_bill_amount";
+    public static final String COLUMN_SUPPLIER_USER_ID = "user_id"; // New column for user ID
 
-
-    //register table columns
-    public static final String COLUMN_REGISTER_ID="user_id";
+    // Register Table Columns
+    public static final String COLUMN_REGISTER_ID = "user_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PASSWORD = "password";
     public static final String COLUMN_MOBILE_NO = "mobile_no";
-
-
 
     // SQL Create Table Statements
     private static final String CREATE_TABLE_ITEM = "CREATE TABLE " + TABLE_ITEM + " ("
@@ -69,13 +71,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_ITEM_NAME + " TEXT NOT NULL, "
             + COLUMN_ITEM_CATEGORY + " TEXT NOT NULL, "
             + COLUMN_ITEM_PRICE + " REAL NOT NULL, "
-            + COLUMN_ITEM_QUANTITY + " INTEGER NOT NULL);";
+            + COLUMN_ITEM_QUANTITY + " INTEGER NOT NULL, "
+            + COLUMN_ITEM_USER_ID + " INTEGER NOT NULL, "
+            + COLUMN_ITEM_SUPPLIER_ID + " INTEGER, " // Add supplier_id column
+            + "FOREIGN KEY(" + COLUMN_ITEM_USER_ID + ") REFERENCES " + TABLE_REGISTER + "(" + COLUMN_REGISTER_ID + "), "
+            + "FOREIGN KEY(" + COLUMN_ITEM_SUPPLIER_ID + ") REFERENCES " + TABLE_SUPPLIER + "(" + COLUMN_SUPPLIER_ID + "));";
 
     private static final String CREATE_TABLE_CUSTOMER = "CREATE TABLE " + TABLE_CUSTOMER + " ("
             + COLUMN_CUSTOMER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_CUSTOMER_CONTACT_NO + " TEXT NOT NULL, "
             + COLUMN_PAYMENT_TYPE + " TEXT CHECK (" + COLUMN_PAYMENT_TYPE + " IN ('cash', 'online')) NOT NULL, "
-            + COLUMN_TOTAL_BILL + " REAL NOT NULL);";
+            + COLUMN_TOTAL_BILL + " REAL NOT NULL, "
+            + COLUMN_CUSTOMER_USER_ID + " INTEGER NOT NULL, "
+            + "FOREIGN KEY(" + COLUMN_CUSTOMER_USER_ID + ") REFERENCES " + TABLE_REGISTER + "(" + COLUMN_REGISTER_ID + "));";
 
     private static final String CREATE_TABLE_SALES = "CREATE TABLE " + TABLE_SALES + " ("
             + COLUMN_SALE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -83,8 +91,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_SALE_ITEMCODE + " TEXT NOT NULL, "
             + COLUMN_SALE_QUANTITY + " INTEGER NOT NULL CHECK (" + COLUMN_SALE_QUANTITY + " > 0), "
             + COLUMN_TOTAL_PRICE + " REAL NOT NULL, "
+            + COLUMN_SALE_USER_ID + " INTEGER NOT NULL, "
             + "FOREIGN KEY(" + COLUMN_SALE_CUSTOMER_ID + ") REFERENCES " + TABLE_CUSTOMER + "(" + COLUMN_CUSTOMER_ID + "), "
-            + "FOREIGN KEY(" + COLUMN_SALE_ITEMCODE + ") REFERENCES " + TABLE_ITEM + "(" + COLUMN_ITEMCODE + "));";
+            + "FOREIGN KEY(" + COLUMN_SALE_ITEMCODE + ") REFERENCES " + TABLE_ITEM + "(" + COLUMN_ITEMCODE + "), "
+            + "FOREIGN KEY(" + COLUMN_SALE_USER_ID + ") REFERENCES " + TABLE_REGISTER + "(" + COLUMN_REGISTER_ID + "));";
 
     private static final String CREATE_TABLE_SUPPLIER = "CREATE TABLE " + TABLE_SUPPLIER + " ("
             + COLUMN_SUPPLIER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -95,17 +105,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_SUPPLIER_PAYMENT_TYPE + " TEXT CHECK (" + COLUMN_SUPPLIER_PAYMENT_TYPE + " IN ('cash', 'debit')) NOT NULL, "
             + COLUMN_SUPPLIER_TOTAL_QUANTITY + " INTEGER NOT NULL CHECK (" + COLUMN_SUPPLIER_TOTAL_QUANTITY + " > 0), "
             + COLUMN_SUPPLIER_TOTAL_BILL_AMOUNT + " REAL NOT NULL, "
-            + "FOREIGN KEY(" + COLUMN_SUPPLIER_ITEMCODE + ") REFERENCES " + TABLE_ITEM + "(" + COLUMN_ITEMCODE + "));";
+            + COLUMN_SUPPLIER_USER_ID + " INTEGER NOT NULL, "
+            + "FOREIGN KEY(" + COLUMN_SUPPLIER_ITEMCODE + ") REFERENCES " + TABLE_ITEM + "(" + COLUMN_ITEMCODE + "), "
+            + "FOREIGN KEY(" + COLUMN_SUPPLIER_USER_ID + ") REFERENCES " + TABLE_REGISTER + "(" + COLUMN_REGISTER_ID + "));";
 
-
-    private static final String CREATE_TABLE_REGISTER="CREATE TABLE " + TABLE_REGISTER+ "("
-            + COLUMN_REGISTER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_NAME + " TEXT,"
-            + COLUMN_EMAIL + " TEXT,"
-            + COLUMN_PASSWORD + " TEXT,"
-            + COLUMN_MOBILE_NO + " TEXT"
-            + ")";
-
+    private static final String CREATE_TABLE_REGISTER = "CREATE TABLE " + TABLE_REGISTER + " ("
+            + COLUMN_REGISTER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_NAME + " TEXT, "
+            + COLUMN_EMAIL + " TEXT, "
+            + COLUMN_PASSWORD + " TEXT, "
+            + COLUMN_MOBILE_NO + " TEXT);";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -128,48 +137,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CUSTOMER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SALES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUPPLIER);
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_REGISTER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_REGISTER);
         // Create tables again
         onCreate(db);
     }
 
     @SuppressLint("Range")
-    public ArrayList<HashMap<String, String>> getAllItemsAndSuppliers() {
+    public ArrayList<HashMap<String, String>> getAllItemsAndSuppliers(int userId) {
         ArrayList<HashMap<String, String>> itemList = new ArrayList<>();
+        // SQL query to fetch item details including price and quantity
+        String selectQuery = "SELECT " +
+                "items." + COLUMN_ITEMCODE + ", " +
+                "items." + COLUMN_ITEM_NAME + ", " +
+                "items." + COLUMN_ITEM_CATEGORY + ", " +
+                "items." + COLUMN_ITEM_PRICE + ", " +
+                "items." + COLUMN_ITEM_QUANTITY + ", " +
+                "supplier." + COLUMN_SUPPLIER_NAME +
+                " FROM " + TABLE_ITEM + " AS items " +
+                " INNER JOIN " + TABLE_SUPPLIER + " AS supplier ON items." + COLUMN_ITEM_SUPPLIER_ID + " = supplier.supplier_id " +
+                " WHERE items." + COLUMN_ITEM_USER_ID + " = ?";
+
         SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(userId)});
 
-        // Query to join Items and Suppliers tables
-        String query = "SELECT i." + COLUMN_ITEMCODE + ", "
-                + "i." + COLUMN_ITEM_NAME + ", "
-                + "i." + COLUMN_ITEM_CATEGORY + ", "
-                + "i." + COLUMN_ITEM_PRICE + ", "
-                + "i." + COLUMN_ITEM_QUANTITY + ", "
-                + "s." + COLUMN_SUPPLIER_NAME + " "
-                + "FROM " + TABLE_ITEM + " i "
-                + "LEFT JOIN " + TABLE_SUPPLIER + " s "
-                + "ON i." + COLUMN_ITEMCODE + " = s." + COLUMN_SUPPLIER_ITEMCODE;
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> item = new HashMap<>();
-                item.put("ItemCode", String.valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_ITEMCODE))));
-                item.put("ItemName", cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
-                item.put("ItemCategory", cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_CATEGORY)));
-                item.put("Price", String.valueOf(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_PRICE))));
-                item.put("Quantity", String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_QUANTITY))));
-                item.put("SupplierName", cursor.getString(cursor.getColumnIndex(COLUMN_SUPPLIER_NAME)));
-
-                itemList.add(item);
-            } while (cursor.moveToNext());
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    HashMap<String, String> item = new HashMap<>();
+                    item.put("ItemCode", cursor.getString(cursor.getColumnIndex(COLUMN_ITEMCODE)));
+                    item.put("ItemName", cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
+                    item.put("ItemCategory", cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_CATEGORY)));
+                    item.put("Price", cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_PRICE)));
+                    item.put("Quantity", cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_QUANTITY)));
+                    item.put("SupplierName", cursor.getString(cursor.getColumnIndex(COLUMN_SUPPLIER_NAME)));
+                    itemList.add(item);
+                } while (cursor.moveToNext());
+            } else {
+                Log.d("Cursor", "No data returned");
+            }
+            cursor.close();
+        } else {
+            Log.e("Cursor", "Cursor is null");
         }
-
-        cursor.close();
-        db.close();
 
         return itemList;
     }
+
+
 
     public boolean deleteUser(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -234,9 +248,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             db.close();
         }
-Log.d("fatch phone is",phone);
+        Log.d("fatch phone is",phone);
         return phone;
     }
+    @SuppressLint("Range")
+    public int getUserId(String email){
+        int userId=-1;
+        SQLiteDatabase db= this.getReadableDatabase();
+        String[] columns = {COLUMN_REGISTER_ID};
+        String selection = COLUMN_EMAIL + " = ?";
+        String[] selectionArgs = {email};
 
+        Cursor cursor = db.query(TABLE_REGISTER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            userId = cursor.getInt(cursor.getColumnIndex(COLUMN_REGISTER_ID));
+
+        }
+        Log.d("fatch userid is",userId+"");
+        cursor.close();
+        db.close();
+
+        return userId;
+
+    }
 
 }

@@ -1,6 +1,9 @@
 package com.example.businessbuddy.SaleDir;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +26,10 @@ import com.example.businessbuddy.R;
 
 public class SalesEntry extends AppCompatActivity {
 
+    private SharedPreferences sharedPreferences;
+    private DatabaseHelper dbHelper;
+    private int userId;
+
     private EditText etContactNumber;
     private RadioGroup rgPaymentType;
     private TextView tvTotalBill;
@@ -40,6 +47,11 @@ public class SalesEntry extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales_entry);
+
+        dbHelper = new DatabaseHelper(this);
+        sharedPreferences=getSharedPreferences("login_session", MODE_PRIVATE);
+        String email=sharedPreferences.getString("email",null);
+        userId= dbHelper.getUserId(email);
 
         etContactNumber = findViewById(R.id.et_contact_number);
         rgPaymentType = findViewById(R.id.rg_payment_type);
@@ -182,7 +194,7 @@ public class SalesEntry extends AppCompatActivity {
 
         if (!itemCode.isEmpty() && !quantityStr.isEmpty()) {
             int quantity = Integer.parseInt(quantityStr);
-            double price = itemDAO.getItemPrice(itemCode);
+            double price = itemDAO.getItemPrice(userId,itemCode);
             double amount = price * quantity;
 
             // Update the corresponding amount TextView
@@ -220,7 +232,7 @@ public class SalesEntry extends AppCompatActivity {
         String paymentType = getSelectedPaymentType().toString();
 
         // Insert customer and get customer ID
-        Integer customerId = customerDAO.insertCustomer(contactNo, paymentType, totalBill);
+        Integer customerId = customerDAO.insertCustomer(contactNo, paymentType, totalBill,userId);
 
         // Iterate over rows and insert sales data
         for (int i = 0; i < itemTableLayout.getChildCount(); i++) {
@@ -233,15 +245,15 @@ public class SalesEntry extends AppCompatActivity {
             int quantity = Integer.parseInt(quantityEditText.getText().toString());
             double amount = Double.parseDouble(amountTextView.getText().toString());
 
-            int currentQuantity = ItemDAO.getItemQuantity(itemCode);
+            int currentQuantity = ItemDAO.getItemQuantity(userId,itemCode);
 
             if(currentQuantity >= quantity){
                 // Create SaleItem and insert into SaleDAO
                 SaleItem saleItem = new SaleItem(itemCode, quantity, amount);
-                saleDAO.insertSale(customerId, saleItem);
+                saleDAO.insertSale(userId,customerId, saleItem);
 
                 // Update item quantity
-                itemDAO.updateItemQuantity(itemCode, quantity);
+                itemDAO.updateItemQuantity(userId,itemCode, quantity);
 
                 Toast.makeText(this, "Sale completed!", Toast.LENGTH_SHORT).show();
                 clearForm();
