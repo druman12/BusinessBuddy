@@ -4,6 +4,8 @@ import static com.example.businessbuddy.DatabaseHelper.COLUMN_EMAIL;
 import static com.example.businessbuddy.DatabaseHelper.COLUMN_REGISTER_ID;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -83,9 +85,8 @@ public class Profile extends AppCompatActivity {
         linearLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteAccount();
-                Intent intent = new Intent(Profile.this, SignUp.class);
-                startActivity(intent);
+
+                showDeleteConfirmationDialog();
             }
         });
 
@@ -94,6 +95,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Profile.this, LogIn.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -116,6 +118,31 @@ public class Profile extends AppCompatActivity {
         profilephoneTextView.setText(phone);
 
     }
+
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete Account");
+        builder.setMessage("Are you sure you want to delete your account? This action cannot be undone.");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteAccount();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        // Show the confirmation dialog
+        builder.create().show();
+    }
+
+
+
+
     private void deleteAccount() {
         // Log the email for debugging
         Log.d("DeleteAccount", "Attempting to delete account with email: " + email);
@@ -123,6 +150,8 @@ public class Profile extends AppCompatActivity {
         boolean isDeleted = dbHelper.deleteUser(email);
         if (isDeleted) {
             Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Profile.this, SignUp.class);
+            startActivity(intent);
             finish();
         } else {
             Toast.makeText(this, "Failed to delete account", Toast.LENGTH_SHORT).show();

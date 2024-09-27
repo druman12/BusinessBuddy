@@ -52,6 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#"
+                        android:textColor="@color/black"
                         android:gravity="center"
                         android:textSize="25sp"
                         android:textStyle="bold" />
@@ -73,6 +74,7 @@
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="#"
                         android:layout_marginStart="4dp"
                         android:textSize="20sp"
@@ -96,6 +98,7 @@
                         android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="#"
                         android:textSize="20sp" />
 
@@ -134,6 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Edit Profile"
+                        android:textColor="@color/black"
                         android:paddingTop="4dp"
                         android:textSize="20dp"
                         android:textStyle="bold" />
@@ -142,6 +146,7 @@
                         android:id="@+id/subEdit"
                         android:paddingTop="2dp"
                         android:paddingBottom="4dp"
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Change profile photo, \n Mobile number etc"
@@ -155,6 +160,7 @@
                     android:text=">"
                     android:textSize="28dp"
                     android:layout_marginEnd="20dp"
+                    android:textColor="@color/black"
                     android:layout_gravity="center"
                     />
             </LinearLayout>
@@ -190,6 +196,7 @@
                         android:layout_height="wrap_content"
                         android:text="Delete Account"
                         android:layout_marginTop="4dp"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -197,6 +204,7 @@
                         android:id="@+id/subdelete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="4dp"
                         android:text="Delete your accound and all \nassociated data"
@@ -210,6 +218,7 @@
                     android:text=">"
                     android:textSize="28dp"
                     android:layout_marginEnd="20dp"
+                    android:textColor="@color/black"
                     android:layout_gravity="center"
                     />
             </LinearLayout>
@@ -244,6 +253,7 @@
                         android:layout_height="wrap_content"
                         android:text="Logout"
                         android:layout_marginTop="4dp"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -252,6 +262,7 @@
                         android:layout_width="wrap_content"
                         android:layout_marginBottom="4dp"
                         android:layout_marginTop="2dp"
+                        android:textColor="@color/black"
                         android:layout_height="wrap_content"
                         android:text="Securely log out of account"
                         android:textSize="15sp" />
@@ -263,6 +274,7 @@
                     android:layout_height="wrap_content"
                     android:text=">"
                     android:textSize="28dp"
+                    android:textColor="@color/black"
                     android:layout_marginEnd="20dp"
                     android:layout_gravity="center"
 

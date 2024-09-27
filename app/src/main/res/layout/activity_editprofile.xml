@@ -51,6 +51,7 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="#"
                     android:gravity="center"
                     android:textSize="25sp"
@@ -74,6 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#"
+                        android:textColor="@color/black"
                         android:layout_marginStart="4dp"
                         android:textSize="20sp"
                         android:layout_gravity="center"/>
@@ -96,6 +98,7 @@
                         android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="#"
                         android:textSize="20sp" />
 
@@ -123,6 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="User name"
+                    android:textColor="@color/black"
                     android:paddingTop="4dp"
                     android:textSize="20dp"
                      />
@@ -130,6 +134,8 @@
                 <EditText
                     android:id="@+id/edit_name"
                     android:layout_width="250dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/text_color"
                     android:layout_height="wrap_content"
                     android:hint="Name" />
 
@@ -160,6 +166,7 @@
                     android:id="@+id/textdelet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="Mobile No"
                     android:layout_marginTop="4dp"
 
@@ -170,6 +177,8 @@
                     android:id="@+id/edit_mobile_no"
                     android:layout_width="250dp"
                     android:maxLength="10"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/text_color"
                     android:layout_height="wrap_content"
                     android:hint="Mobile No" />
 
@@ -196,6 +205,7 @@
                     android:id="@+id/textlogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="Password"
                     android:layout_marginTop="4dp"
                     android:textSize="20dp"
@@ -206,6 +216,8 @@
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:hint="Password"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/text_color"
                     android:inputType="textPassword" />
 
             </LinearLayout>
