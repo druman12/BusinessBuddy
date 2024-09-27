@@ -233,41 +233,66 @@ public class SalesEntry extends AppCompatActivity {
         String contactNo = etContactNumber.getText().toString();
         String paymentType = getSelectedPaymentType();
 
-        // Insert customer and get customer ID
-        Integer customerId = customerDAO.insertCustomer(contactNo, paymentType, totalBill, userId);
+        if (contactNo.length() == 10) {
+            // First, check stock availability for all items
+            boolean allItemsInStock = true; // Flag to check stock availability
 
-        // Iterate over all rows and insert sales data
-        for (int i = 0; i < itemTableLayout.getChildCount(); i++) {
-            LinearLayout row = (LinearLayout) itemTableLayout.getChildAt(i);
-            EditText itemCodeEditText = (EditText) row.getChildAt(0);
-            EditText quantityEditText = (EditText) row.getChildAt(1);
-            TextView amountTextView = (TextView) row.getChildAt(2);
+            for (int i = 0; i < itemTableLayout.getChildCount(); i++) {
+                LinearLayout row = (LinearLayout) itemTableLayout.getChildAt(i);
+                EditText itemCodeEditText = (EditText) row.getChildAt(0);
+                EditText quantityEditText = (EditText) row.getChildAt(1);
 
-            String itemCode = itemCodeEditText.getText().toString();
-            String quantityStr = quantityEditText.getText().toString();
-            String amountStr = amountTextView.getText().toString();
+                String itemCode = itemCodeEditText.getText().toString();
+                String quantityStr = quantityEditText.getText().toString();
 
-            if (!itemCode.isEmpty() && !quantityStr.isEmpty() && !amountStr.isEmpty()) {
-                int quantity = Integer.parseInt(quantityStr);
-                double amount = Double.parseDouble(amountStr);
+                if (!itemCode.isEmpty() && !quantityStr.isEmpty()) {
+                    int quantity = Integer.parseInt(quantityStr);
+                    int currentQuantity = itemDAO.getItemQuantity(userId, itemCode);
 
-                int currentQuantity = itemDAO.getItemQuantity(userId, itemCode);
-
-                if (currentQuantity >= quantity) {
-                    // Create SaleItem and insert into SaleDAO
-                    SaleItem saleItem = new SaleItem(itemCode, quantity, amount);
-                    saleDAO.insertSale(userId, customerId, saleItem);
-
-                    // Update item quantity
-                    itemDAO.updateItemQuantity(userId, itemCode, quantity);
-                } else {
-                    Toast.makeText(this, "Sale quantity is higher than available stock!", Toast.LENGTH_SHORT).show();
+                    // Check if the current quantity is less than the requested quantity
+                    if (currentQuantity < quantity) {
+                        allItemsInStock = false; // Set flag to false if any item is out of stock
+                        Toast.makeText(this, "Item " + itemCode + " is out of stock. Available quantity: " + currentQuantity, Toast.LENGTH_SHORT).show();
+                        break; // Exit the loop as we found an out-of-stock item
+                    }
                 }
             }
-        }
 
-        Toast.makeText(this, "Sale completed!", Toast.LENGTH_SHORT).show();
-        clearForm();
+            // If all items are in stock, proceed with the sale
+            if (allItemsInStock) {
+                // Insert customer and get customer ID
+                Integer customerId = customerDAO.insertCustomer(contactNo, paymentType, totalBill, userId);
+
+                // Iterate over all rows and insert sales data
+                for (int i = 0; i < itemTableLayout.getChildCount(); i++) {
+                    LinearLayout row = (LinearLayout) itemTableLayout.getChildAt(i);
+                    EditText itemCodeEditText = (EditText) row.getChildAt(0);
+                    EditText quantityEditText = (EditText) row.getChildAt(1);
+                    TextView amountTextView = (TextView) row.getChildAt(2);
+
+                    String itemCode = itemCodeEditText.getText().toString();
+                    String quantityStr = quantityEditText.getText().toString();
+                    String amountStr = amountTextView.getText().toString();
+
+                    if (!itemCode.isEmpty() && !quantityStr.isEmpty() && !amountStr.isEmpty()) {
+                        int quantity = Integer.parseInt(quantityStr);
+                        double amount = Double.parseDouble(amountStr);
+
+                        // Process the sale for in-stock item
+                        SaleItem saleItem = new SaleItem(itemCode, quantity, amount);
+                        saleDAO.insertSale(userId, customerId, saleItem);
+
+                        // Update item quantity in stock
+                        itemDAO.updateItemQuantity(userId, itemCode, quantity);
+                    }
+                }
+                Toast.makeText(this, "Sale completed !!!", Toast.LENGTH_SHORT).show();
+                clearForm();
+            }
+
+        } else {
+            Toast.makeText(this, "Enter a valid contact number...", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
