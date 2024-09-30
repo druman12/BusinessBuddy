@@ -120,7 +120,7 @@
                     android:id="@+id/logoEdit"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/profileedit"
+                    android:src="@drawable/edit_profile_icon"
                     android:layout_marginStart="25dp"
                     android:layout_gravity="center"/>
 
