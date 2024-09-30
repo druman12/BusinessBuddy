@@ -179,17 +179,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             Log.e("Cursor", "Cursor is null");
         }
-
         return itemList;
     }
-
-
-
-    public boolean deleteUser(String email) {
+    public boolean deleteUser(int userId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_REGISTER, COLUMN_EMAIL + "=?", new String[]{email}) > 0;
-    }
+        boolean isDeleted = false;
 
+        db.beginTransaction();
+        try {
+                db.delete(TABLE_SALES, "user_id=?", new String[]{String.valueOf(userId)});
+                db.delete(TABLE_ITEM, "user_id=?", new String[]{String.valueOf(userId)});
+                db.delete(TABLE_CUSTOMER, "user_id=?",new String[]{String.valueOf(userId)});
+                db.delete(TABLE_SUPPLIER, "user_id=?", new String[]{String.valueOf(userId)});
+
+                int rowsAffected = db.delete(TABLE_REGISTER, COLUMN_REGISTER_ID + "=?", new String[]{String.valueOf(userId)});
+                if (rowsAffected > 0) {
+                    isDeleted = true;
+                }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        return isDeleted;
+    }
 
     @SuppressLint("Range")
     public String getName(String email) {
@@ -199,24 +211,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {email};
 
         Cursor cursor = db.query(TABLE_REGISTER, columns, selection, selectionArgs, null, null, null);
-
         String name = "";
-
 
         if (cursor.moveToFirst()) {
             name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-
         }
-
         cursor.close();
         db.close();
-        Log.d("fatch name is",name);
         return name;
     }
 
-
     @SuppressLint("Range")
-
     public String getPhone(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_MOBILE_NO};
@@ -225,7 +230,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = null;
         String phone = "";
-
         try {
             cursor = db.query(TABLE_REGISTER, columns, selection, selectionArgs, null, null, null);
 
@@ -248,7 +252,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             db.close();
         }
-        Log.d("fatch phone is",phone);
         return phone;
     }
     @SuppressLint("Range")
@@ -258,19 +261,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] columns = {COLUMN_REGISTER_ID};
         String selection = COLUMN_EMAIL + " = ?";
         String[] selectionArgs = {email};
-
         Cursor cursor = db.query(TABLE_REGISTER, columns, selection, selectionArgs, null, null, null);
 
         if (cursor.moveToFirst()) {
             userId = cursor.getInt(cursor.getColumnIndex(COLUMN_REGISTER_ID));
-
         }
-        Log.d("fatch userid is",userId+"");
         cursor.close();
         db.close();
-
         return userId;
-
     }
-
 }

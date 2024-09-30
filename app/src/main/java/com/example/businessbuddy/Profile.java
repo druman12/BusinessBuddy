@@ -45,9 +45,7 @@ public class Profile extends AppCompatActivity {
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout4;
     String email;
-
-
-
+    Integer userId;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -86,39 +84,50 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
 
                 showDeleteConfirmationDialog();
-                finish();
             }
         });
 
         logoutlinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile.this, LogIn.class);
-                startActivity(intent);
-                finish();
+               showLogoutDialog();
             }
         });
 
         dbHelper = new DatabaseHelper(this);
 
-
         // Retrieve profile information from shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences("login_session", MODE_PRIVATE);
         email = sharedPreferences.getString("email", "#");
-        Log.d("fetched data from shred pref", email);
-
-        // Display profile information on the screen
-
         profileEmailTextView.setText(email);
-
         String name = dbHelper.getName(email);
         String phone = dbHelper.getPhone(email);
-
+        userId=dbHelper.getUserId(email);
         profileNameTextView.setText(name);
         profilephoneTextView.setText(phone);
-
     }
-
+    private void showLogoutDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to log out?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Go to the Login page and clear the back stack
+                        Intent intent = new Intent(Profile.this, LogIn.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Delete Account");
@@ -127,6 +136,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteAccount();
+                finish();
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -140,28 +150,23 @@ public class Profile extends AppCompatActivity {
         builder.create().show();
     }
 
-
-
-
     private void deleteAccount() {
-        // Log the email for debugging
-        Log.d("DeleteAccount", "Attempting to delete account with email: " + email);
-
-        boolean isDeleted = dbHelper.deleteUser(email);
+        boolean isDeleted = dbHelper.deleteUser(userId);
         if (isDeleted) {
             Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show();
+            clearSession();
             Intent intent = new Intent(Profile.this, SignUp.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         } else {
             Toast.makeText(this, "Failed to delete account", Toast.LENGTH_SHORT).show();
         }
     }
-
-
+    private void clearSession() {
+        SharedPreferences sharedPreferences = getSharedPreferences("login_session", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 }
-
-
-
-
-
